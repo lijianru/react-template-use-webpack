@@ -97,3 +97,31 @@ resolve: {
 ```
 
 > 这时候一个拥有Typescript、React的项目就搭建完成了。
+
+## 开发体验优化
+### 优化引用路径
+- yarn add --dev tsconfig-paths-webpack-plugin
+
+- 更改webpack.config.js配置
+```javascript
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
+
+resolve: {
+    plugins: [new TsconfigPathsPlugin({
+      configFile: path.join(__dirname, './tsconfig.json')
+    })]
+}
+```
+
+- 更改tsconfig.json
+```json
+"baseUrl": "./src",
+"paths": {
+    "Components": ["components/*"],
+    "Pages": ["pages/*"]
+}, 
+```
+> 现在我们将引用的路径更改后，重启
+
+### 热更替
+
