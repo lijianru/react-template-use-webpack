@@ -62,3 +62,22 @@ module: {
 ```
 
 - 运行tsc --init，生成tsconfig.json文件
+
+### 集成React
+- yarn add react react-dom
+
+- yarn add @types/react @types/react-dom ts-loader --dev
+
+- 更改index.ts为index.tsx，并将内容改为如下
+```javascript
+import * as React from "react";
+import ReactDOM from 'react-dom'
+
+ReactDOM.render(<div>Webpack Demo</div>, document.getElementById('root'))
+```
+
+- 将tsconfig.js中的jsx配置改为："jsx": "react"
+
+- 更改webpack.config.js中的配置，将入口改为index.tsx
+
+> 这时候一个拥有Typescript、React的项目就搭建完成了。
