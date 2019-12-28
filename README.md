@@ -124,4 +124,35 @@ resolve: {
 > 现在我们将引用的路径更改后，重启
 
 ### 热更替
+> 在这里我们使用webpack内置的热更替模块
+- 更改webpack.config.js配置
+```javascript
+const Webpack = require('webpack')
 
+devServer: {
+    hot: true
+},
+plugins: [
+    new Webpack.NamedModulesPlugin(),
+    new Webpack.HotModuleReplacementPlugin()
+]
+```
+
+- 更改index.tsx
+```javascript
+const render = (Component: any) => {
+  ReactDOM.render(<Component />, document.getElementById('root'))
+}
+
+render(App)
+
+// @ts-ignore
+if (module.hot) {
+  // @ts-ignore
+  module.hot.accept('./App.tsx', function () {
+    console.log('更新了！')
+    const NextComponent = require('./App').default
+    render(NextComponent)
+  })
+}
+```
