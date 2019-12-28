@@ -80,4 +80,20 @@ ReactDOM.render(<div>Webpack Demo</div>, document.getElementById('root'))
 
 - 更改webpack.config.js中的配置，将入口改为index.tsx
 
+> 尝试启动项目
+
+- 在src目录下新建App.tsx、pages和components文件夹，并在里面新建Home页面和Header组件，并更改引用，让它成为一个完整的项目
+
+> 尝试重新启动，但是发现它报错了，错误信息如下。这是因为resolve.extensions的默认值为[".js", ".json"]
+```
+Module not found: Error: Can't resolve './App' in 'D:\demo\webpack-demo\src'
+```
+
+- 更改webpack.config.js配置，添加如下配置
+```javascript
+resolve: {
+  extensions: ['.ts', '.tsx', '.js']
+}
+```
+
 > 这时候一个拥有Typescript、React的项目就搭建完成了。

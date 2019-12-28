@@ -1,4 +1,5 @@
 import * as React from "react";
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom';
+import App from "./App";
 
-ReactDOM.render(<div><h1>Webpack Demo</h1></div>, document.getElementById('root'))
+ReactDOM.render(<App />, document.getElementById('root'))

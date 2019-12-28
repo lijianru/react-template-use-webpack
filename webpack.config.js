@@ -21,6 +21,9 @@ module.exports = {
       }
     ]
   },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js']
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(__dirname, './template.html')
