@@ -1,5 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
+const Webpack = require('webpack')
 
 module.exports = {
   entry: {
@@ -11,6 +13,7 @@ module.exports = {
   },
   devServer: {
     open: true,
+    hot: true,
   },
   module: {
     rules: [
@@ -21,9 +24,17 @@ module.exports = {
       }
     ]
   },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js'],
+    plugins: [new TsconfigPathsPlugin({
+      configFile: path.join(__dirname, './tsconfig.json')
+    })]
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(__dirname, './template.html')
-    })
+    }),
+    new Webpack.NamedModulesPlugin(),
+    new Webpack.HotModuleReplacementPlugin()
   ]
 }

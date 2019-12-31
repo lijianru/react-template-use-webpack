@@ -1,4 +1,19 @@
 import * as React from "react";
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom';
+import App from "./App";
 
-ReactDOM.render(<div><h1>Webpack Demo</h1></div>, document.getElementById('root'))
+const render = (Component: any) => {
+  ReactDOM.render(<Component />, document.getElementById('root'))
+}
+
+render(App)
+
+// @ts-ignore
+if (module.hot) {
+  // @ts-ignore
+  module.hot.accept('./App.tsx', function () {
+    console.log('更新了！')
+    const NextComponent = require('./App').default
+    render(NextComponent)
+  })
+}
