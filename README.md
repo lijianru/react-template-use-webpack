@@ -98,8 +98,8 @@ resolve: {
 
 > 这时候一个拥有Typescript、React的项目就搭建完成了。
 
-## 开发体验优化
-### 优化引用路径
+### 开发体验优化
+#### 优化引用路径
 - yarn add --dev tsconfig-paths-webpack-plugin
 
 - 更改webpack.config.js配置
@@ -123,7 +123,7 @@ resolve: {
 ```
 > 现在我们将引用的路径更改后，重启
 
-### 热更替
+#### 热更替
 > 在这里我们使用webpack内置的热更替模块
 - 更改webpack.config.js配置
 ```javascript
