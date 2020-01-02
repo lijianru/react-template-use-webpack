@@ -1,5 +1,6 @@
 const webpackMerge = require('webpack-merge')
 const webpackCommon = require('./webpack.common.js')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const env = process.env.ENV
 
 module.exports = webpackMerge(webpackCommon, {
@@ -22,5 +23,11 @@ module.exports = webpackMerge(webpackCommon, {
         }
       }
     },
+    minimizer: [
+      new UglifyJsPlugin({
+        parallel: true,
+        cache: true
+      })
+    ]
   }
 })

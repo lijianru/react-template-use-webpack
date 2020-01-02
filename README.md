@@ -267,7 +267,7 @@ module.exports = webpackMerge(webpackCommon, {
 
 #### 代码分割
 如果观察过前一步build出的文件你会发现所有的JS文件都只在app.js文件中，现在我们将node_modules中的文件单独打包为一个文件，
-逻辑代码单独build为一个文件。配置如下：
+逻辑代码单独build为一个文件。webpack.build.jsz中增加配置如下：
 ```
   optimization: {
     runtimeChunk: {
@@ -286,3 +286,17 @@ module.exports = webpackMerge(webpackCommon, {
   }
 ```
 
+#### 代码压缩
+- yarn add uglifyjs-webpack-plugin --dev
+
+- webpack.build.jsz中增加配置
+```javascript
+optimization: {
+  minimizer: [
+    new UglifyJsPlugin({
+      parallel: true,
+      cache: true
+    })
+  ]
+}
+```
