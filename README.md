@@ -156,3 +156,161 @@ if (module.hot) {
   })
 }
 ```
+
+### build
+在之前我们在package.json中添加了一条配置`"build": "webpack"`，并没有区分环境。
+接下来我们先将webpack的配置区分开来，然后再分别配置测试和生产环境。
+
+- yarn add webpack-merge --dev
+
+- 在根目录下建立webpack.dev.js和webpack.build.js文件并将原webpack.config.js重命名为webpack.common.js
+```javascript
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
+
+module.exports = {
+  entry: {
+    app: path.join(__dirname, './src/index.tsx')
+  },
+  output: {
+    path: path.join(__dirname, './dist'),
+    filename: '[name].js'
+  },
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        loader: "ts-loader"
+      }
+    ]
+  },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js'],
+    plugins: [new TsconfigPathsPlugin({
+      configFile: path.join(__dirname, './tsconfig.json')
+    })]
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, './template.html')
+    }),
+  ]
+}
+```
+
+```javascript
+const webpackMerge = require('webpack-merge')
+const webpackCommon = require('./webpack.common.js')
+const Webpack = require('webpack')
+
+module.exports = webpackMerge(webpackCommon, {
+  devServer: {
+    open: true,
+    hot: true,
+  },
+  plugins: [
+    new Webpack.NamedModulesPlugin(),
+    new Webpack.HotModuleReplacementPlugin()
+  ]
+})
+```
+
+```javascript
+const webpackMerge = require('webpack-merge')
+const webpackCommon = require('./webpack.common.js')
+
+module.exports = webpackMerge(webpackCommon, {})
+```
+
+- 将之前package.json中的两条脚本改为如下
+```
+"scripts": {
+    "start": "webpack-dev-server --config ./webpack.dev.js",
+    "build:dev": "webpack --config ./webpack.build.js",
+    "build:prod": "webpack --config webpack.build.js"
+},
+```
+
+之前我们一直没有区分环境，在这里我们将添加环境变量
+- yarn add cross-env --dev
+
+- 更改package.json中的脚本改为如下
+```
+"build:dev": "cross-env ENV=development webpack --config ./webpack.build.js",
+"build:prod": "cross-env ENV=production webpack --config webpack.build.js"
+```
+
+- 更改webpack.build.js
+```javascript
+const env = process.env.ENV
+
+module.exports = webpackMerge(webpackCommon, {
+  mode: env
+})
+```
+
+在每次build之前我们应该清空dist文件夹
+- yarn add rimraf --dev
+
+- 添加一条删除的脚本并在build之前先执行一次
+```
+"scripts": {
+    "clear": "rimraf ./dist/*",
+    "start": "webpack-dev-server --config ./webpack.dev.js",
+    "build:dev": "yarn clear && cross-env ENV=development webpack --config ./webpack.build.js",
+    "build:prod": "yarn clear && cross-env ENV=production webpack --config webpack.build.js"
+}
+```
+至此，所有的build准备工作已经做完
+
+#### 代码分割
+如果观察过前一步build出的文件你会发现所有的JS文件都只在app.js文件中，现在我们将node_modules中的文件单独打包为一个文件，
+逻辑代码单独build为一个文件。webpack.build.jsz中增加配置如下：
+```
+  optimization: {
+    runtimeChunk: {
+      name: 'manifest'
+    },
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          chunks: 'all'
+        }
+      }
+    },
+  }
+```
+
+#### 代码压缩
+- yarn add uglifyjs-webpack-plugin --dev
+
+- webpack.build.jsz中增加配置
+```javascript
+optimization: {
+  minimizer: [
+    new UglifyJsPlugin({
+      parallel: true,
+      cache: true
+    })
+  ]
+}
+```
+
+#### 缓存
+对于一些不变的文件我们应该在客户端缓存，对于一些业务类型的代码应该在每次部署上线的时候避免使用之前的缓存。
+- contenthash：根据内容的唯一hash
+- chunkhash：根据chunk的唯一hash
+- hash：每次在build的时候会变化
+
+更改webpack.common.js中的配置：
+```
+output: {
+  path: path.join(__dirname, './dist'),
+  filename: '[name].[contenthash].js'
+}
+```
+
