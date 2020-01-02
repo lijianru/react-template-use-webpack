@@ -13,7 +13,6 @@ module.exports = webpackMerge(webpackCommon, {
     // 指定需要进行分块的代码和分块后的文件名
     splitChunks: {
       cacheGroups: {
-        default: false,
         commons: {
           // 匹配需要分割的chunk
           test: /[\\/]node_modules[\\/]/,

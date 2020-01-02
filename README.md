@@ -275,7 +275,6 @@ module.exports = webpackMerge(webpackCommon, {
     },
     splitChunks: {
       cacheGroups: {
-        default: false,
         commons: {
           test: /[\\/]node_modules[\\/]/,
           name: 'vendor',
@@ -300,3 +299,18 @@ optimization: {
   ]
 }
 ```
+
+#### 缓存
+对于一些不变的文件我们应该在客户端缓存，对于一些业务类型的代码应该在每次部署上线的时候避免使用之前的缓存。
+- contenthash：根据内容的唯一hash
+- chunkhash：根据chunk的唯一hash
+- hash：每次在build的时候会变化
+
+更改webpack.common.js中的配置：
+```
+output: {
+  path: path.join(__dirname, './dist'),
+  filename: '[name].[contenthash].js'
+}
+```
+
