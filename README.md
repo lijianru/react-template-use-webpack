@@ -263,10 +263,26 @@ module.exports = webpackMerge(webpackCommon, {
     "build:prod": "yarn clear && cross-env ENV=production webpack --config webpack.build.js"
 }
 ```
-至此，所有的build准本工作已经做完
+至此，所有的build准备工作已经做完
 
-#### 测试环境的构建
+#### 代码分割
+如果观察过前一步build出的文件你会发现所有的JS文件都只在app.js文件中，现在我们将node_modules中的文件单独打包为一个文件，
+逻辑代码单独build为一个文件。配置如下：
+```
+  optimization: {
+    runtimeChunk: {
+      name: 'manifest'
+    },
+    splitChunks: {
+      cacheGroups: {
+        default: false,
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          chunks: 'all'
+        }
+      }
+    },
+  }
+```
 
-
-
-#### 生产环境的构建
