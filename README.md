@@ -224,7 +224,7 @@ const webpackCommon = require('./webpack.common.js')
 module.exports = webpackMerge(webpackCommon, {})
 ```
 
-- 将之前package.json中的的两条脚本改为如下
+- 将之前package.json中的两条脚本改为如下
 ```
 "scripts": {
     "start": "webpack-dev-server --config ./webpack.dev.js",
@@ -232,6 +232,38 @@ module.exports = webpackMerge(webpackCommon, {})
     "build:prod": "webpack --config webpack.build.js"
 },
 ```
+
+之前我们一直没有区分环境，在这里我们将添加环境变量
+- yarn add cross-env --dev
+
+- 更改package.json中的脚本改为如下
+```
+"build:dev": "cross-env ENV=development webpack --config ./webpack.build.js",
+"build:prod": "cross-env ENV=production webpack --config webpack.build.js"
+```
+
+- 更改webpack.build.js
+```javascript
+const env = process.env.ENV
+
+module.exports = webpackMerge(webpackCommon, {
+  mode: env
+})
+```
+
+在每次build之前我们应该清空dist文件夹
+- yarn add rimraf --dev
+
+- 添加一条删除的脚本并在build之前先执行一次
+```
+"scripts": {
+    "clear": "rimraf ./dist/*",
+    "start": "webpack-dev-server --config ./webpack.dev.js",
+    "build:dev": "yarn clear && cross-env ENV=development webpack --config ./webpack.build.js",
+    "build:prod": "yarn clear && cross-env ENV=production webpack --config webpack.build.js"
+}
+```
+至此，所有的build准本工作已经做完
 
 #### 测试环境的构建
 
