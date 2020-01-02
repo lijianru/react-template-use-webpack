@@ -156,3 +156,85 @@ if (module.hot) {
   })
 }
 ```
+
+### build
+在之前我们在package.json中添加了一条配置`"build": "webpack"`，并没有区分环境。
+接下来我们先将webpack的配置区分开来，然后再分别配置测试和生产环境。
+
+- yarn add webpack-merge --dev
+
+- 在根目录下建立webpack.dev.js和webpack.build.js文件并将原webpack.config.js重命名为webpack.common.js
+```javascript
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
+
+module.exports = {
+  entry: {
+    app: path.join(__dirname, './src/index.tsx')
+  },
+  output: {
+    path: path.join(__dirname, './dist'),
+    filename: '[name].js'
+  },
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        loader: "ts-loader"
+      }
+    ]
+  },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js'],
+    plugins: [new TsconfigPathsPlugin({
+      configFile: path.join(__dirname, './tsconfig.json')
+    })]
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, './template.html')
+    }),
+  ]
+}
+```
+
+```javascript
+const webpackMerge = require('webpack-merge')
+const webpackCommon = require('./webpack.common.js')
+const Webpack = require('webpack')
+
+module.exports = webpackMerge(webpackCommon, {
+  devServer: {
+    open: true,
+    hot: true,
+  },
+  plugins: [
+    new Webpack.NamedModulesPlugin(),
+    new Webpack.HotModuleReplacementPlugin()
+  ]
+})
+```
+
+```javascript
+const webpackMerge = require('webpack-merge')
+const webpackCommon = require('./webpack.common.js')
+
+module.exports = webpackMerge(webpackCommon, {})
+```
+
+- 将之前package.json中的的两条脚本改为如下
+```
+"scripts": {
+    "start": "webpack-dev-server --config ./webpack.dev.js",
+    "build:dev": "webpack --config ./webpack.build.js",
+    "build:prod": "webpack --config webpack.build.js"
+},
+```
+
+#### 测试环境的构建
+
+
+
+#### 生产环境的构建

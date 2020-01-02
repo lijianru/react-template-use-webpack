@@ -1,7 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
-const Webpack = require('webpack')
 
 module.exports = {
   entry: {
@@ -10,10 +9,6 @@ module.exports = {
   output: {
     path: path.join(__dirname, './dist'),
     filename: '[name].js'
-  },
-  devServer: {
-    open: true,
-    hot: true,
   },
   module: {
     rules: [
@@ -34,7 +29,5 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.join(__dirname, './template.html')
     }),
-    new Webpack.NamedModulesPlugin(),
-    new Webpack.HotModuleReplacementPlugin()
   ]
 }
