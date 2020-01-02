@@ -1,3 +1,4 @@
+const path = require('path')
 const webpackMerge = require('webpack-merge')
 const webpackCommon = require('./webpack.common.js')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
@@ -5,6 +6,10 @@ const env = process.env.ENV
 
 module.exports = webpackMerge(webpackCommon, {
   mode: env,
+  output: {
+    path: path.join(__dirname, './dist'),
+    filename: '[name].[contenthash].js'
+  },
   optimization: {
     // 缓存webpack固定生成的代码块
     runtimeChunk: {

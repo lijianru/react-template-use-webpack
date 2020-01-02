@@ -6,10 +6,6 @@ module.exports = {
   entry: {
     app: path.join(__dirname, './src/index.tsx')
   },
-  output: {
-    path: path.join(__dirname, './dist'),
-    filename: '[name].[contenthash].js'
-  },
   module: {
     rules: [
       {

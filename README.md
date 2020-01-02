@@ -306,7 +306,7 @@ optimization: {
 - chunkhash：根据chunk的唯一hash
 - hash：每次在build的时候会变化
 
-更改webpack.common.js中的配置：
+将之前的output的配置挪到webpack.dev.js，在webpack.build.js中增加如下配置：
 ```
 output: {
   path: path.join(__dirname, './dist'),
