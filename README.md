@@ -1,8 +1,7 @@
 # 从零搭建一个React项目
 ## webpack
 ### 工作流程
-[ webpack工作流程](http://imweb-io-1251594266.cos.ap-guangzhou.myqcloud.com/5e0f338b2309a844510ed8ca85ccfd23.jpg)
-
+![ webpack工作流程](http://imweb-io-1251594266.cos.ap-guangzhou.myqcloud.com/5e0f338b2309a844510ed8ca85ccfd23.jpg)
 图源[https://imweb.io/topic/5baca58079ddc80f36592f1a](https://imweb.io/topic/5baca58079ddc80f36592f1a)
 
 ### loader
