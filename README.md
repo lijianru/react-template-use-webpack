@@ -25,6 +25,12 @@ webpack 插件是一个具有 apply 方法的 JavaScript 对象。apply 方法�
 
 - 在根目录下新建一个src文件夹，在文件夹中新建index.js备用，在文件中添加如下代码
 ```javascript
+const root = document.getElementById('root')
+root.innerText = 'Webpack demo'
+```
+
+- 在根目录下新建一个webpack.config.js文件，添加如下内容
+```javascript
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
