@@ -1,4 +1,19 @@
-## 从零搭建一个React项目
+# 从零搭建一个React项目
+## webpack
+### 工作流程
+[ webpack工作流程](http://imweb-io-1251594266.cos.ap-guangzhou.myqcloud.com/5e0f338b2309a844510ed8ca85ccfd23.jpg)
+
+图源[https://imweb.io/topic/5baca58079ddc80f36592f1a](https://imweb.io/topic/5baca58079ddc80f36592f1a)
+
+### loader
+loader 用于对模块的源代码进行转换。loader 可以使你在 import 或"加载"模块时预处理文件。因此，loader 类似于其他构建工具中“任务(task)”，
+并提供了处理前端构建步骤的强大方法。loader 可以将文件从不同的语言（如 TypeScript）转换为 JavaScript 或将内联图像转换为 data URL(url-loader)。
+loader 甚至允许你直接在 JavaScript 模块中 import CSS(css-loader)文件！
+
+### plugins
+webpack 插件是一个具有 apply 方法的 JavaScript 对象。apply 方法会被 webpack compiler 调用，并且 compiler 对象可在整个编译生命周期访问。
+
+## 开始搭建
 ### webpack构建一个简单的项目
 - yarn init：初始化一个package.json文件
 
@@ -314,3 +329,12 @@ output: {
 }
 ```
 
+## TODO
+- [] ESlint
+- [] other loader
+- [] AntD
+- [] Redux
+- [] axios
+- [] router
+- [] 服务端渲染
+- ...
