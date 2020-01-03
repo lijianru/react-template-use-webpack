@@ -335,11 +335,11 @@ output: {
 ```
 
 ## TODO
-- [] ESlint
-- [] other loader
-- [] AntD
-- [] Redux
-- [] axios
-- [] router
-- [] 服务端渲染
+- [ ] ESlint
+- [ ] other loader
+- [ ] AntD
+- [ ] Redux
+- [ ] axios
+- [ ] router
+- [ ] 服务端渲染
 - ...
