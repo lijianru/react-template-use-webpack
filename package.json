@@ -28,7 +28,9 @@
     "build:prod": "yarn clear && cross-env ENV=production webpack --config webpack.build.js"
   },
   "dependencies": {
+    "@types/react-router-dom": "^5.1.3",
     "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "react-dom": "^16.12.0",
+    "react-router-dom": "^5.1.2"
   }
 }

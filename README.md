@@ -334,13 +334,50 @@ output: {
 }
 ```
 
+### 添加路由
+- yarn add react-router-dom
+- yarn add @types/react-router-dom
+- 在page目录下增加List文件夹，并添加List组件
+- 更改App.tsx文件
+```
+import * as React from "react";
+import { BrowserRouter, Switch, Route, Link } from 'react-router-dom'
+import Home from "Pages/Home";
+import List from "./pages/List";
+
+export default class App extends React.Component{
+  render() {
+    return (
+      <BrowserRouter>
+        <ul>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/list">List</Link></li>
+        </ul>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/list">
+            <List />
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    )
+  }
+}
+```
+- 更改webpack配置，在devServer下增加如下配置
+```
+historyApiFallback: true
+```
+
 ## TODO
 - [ ] ESlint
 - [ ] other loader
 - [ ] AntD
 - [ ] Redux
 - [ ] axios
-- [ ] router
+- [x] router
 - [ ] 服务端渲染
 
     -
