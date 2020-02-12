@@ -334,8 +334,26 @@ output: {
 }
 ```
 
+#### eslint & prettier
+- yarn add eslint prettier --dev
+
+- ./node_modules/.bin/eslint --init 按照它询问的问题最终生成一个eslint的配置文件
+
+- 在根目录下创建一个prettier.config.js的文件并在里边加入如下配置
+```javascript
+module.exports = {
+  bracketSpacing: true,
+  printWidth: 100,
+  trailingComma: 'es5',
+  tabWidth: 2,
+  semi: false,
+  singleQuote: true,
+}
+```
+
 ## TODO
-- [ ] ESlint
+- [x] ESlint
+- [x] prettier
 - [ ] other loader
 - [ ] AntD
 - [ ] Redux
