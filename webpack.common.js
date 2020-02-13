@@ -11,7 +11,12 @@ module.exports = {
       {
         test: /\.tsx?$/,
         exclude: /node_modules/,
-        loader: 'ts-loader'
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {}
+          }
+        ]
       }
     ]
   },
@@ -24,6 +29,6 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(__dirname, './template.html')
-    }),
+    })
   ]
 }
