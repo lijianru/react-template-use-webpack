@@ -185,9 +185,6 @@ declare module '*.scss' {
 }
 ```
 
-- 这时候build会有一个报错：`TS1149: File name 'F:/demo/webpack-demo/src/pages/Home/styles.scss.d.ts' differs from already included file name 'F:/demo/webpack-demo/src/Pages/Home/styles.scss.d.ts' only in casing.`
-
-
 ### 开发体验优化
 #### 优化引用路径
 - yarn add --dev tsconfig-paths-webpack-plugin
@@ -207,8 +204,8 @@ resolve: {
 ```json
 "baseUrl": "./src",
 "paths": {
-    "Components": ["components/*"],
-    "Pages": ["pages/*"]
+    "Components": ["Components/*"],
+    "Pages": ["Pages/*"]
 }, 
 ```
 > 现在我们将引用的路径更改后，重启
