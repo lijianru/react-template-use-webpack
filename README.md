@@ -118,6 +118,26 @@ resolve: {
 
 > 这时候一个拥有Typescript、React的项目就搭建完成了。
 
+### 集成Sass
+- yarn add node-sass sass-loader style-loader css-loader sass fibers
+
+- 在webpack中添加如下配置
+> 将sass代码编译成可用的样式代码需要用到三个loader，所以就会产生顺序问题，
+> 首先sass-loader将sass代码编译为css(默认使用node-sass)，
+> 然后css-loader将编译出来的代码再次编译成为符合CommonJS的代码，最后style-loader将第二步编译出来的代码转为js代码
+
+```
+{
+    test: /\.scss$/,
+    include: [path.join(__dirname, './src')],
+    use: [
+        'style-loader',
+        'css-loader',
+        'sass-loader'
+    ]
+}
+```
+
 ### 开发体验优化
 #### 优化引用路径
 - yarn add --dev tsconfig-paths-webpack-plugin
@@ -334,7 +354,7 @@ output: {
 }
 ```
 
-#### eslint & prettier
+### eslint & prettier
 - yarn add eslint prettier --dev
 
 - ./node_modules/.bin/eslint --init 按照它询问的问题最终生成一个eslint的配置文件
