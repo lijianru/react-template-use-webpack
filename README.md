@@ -119,7 +119,7 @@ resolve: {
 > 这时候一个拥有Typescript、React的项目就搭建完成了。
 
 ### 集成Sass
-- yarn add node-sass sass-loader style-loader css-loader sass fibers
+- yarn add node-sass sass-loader style-loader css-loader@1.0.1 sass fibers
 
 - 在webpack中添加如下配置
 > 将sass代码编译成可用的样式代码需要用到三个loader，所以就会产生顺序问题，
@@ -137,6 +137,56 @@ resolve: {
     ]
 }
 ```
+
+- 在Home组件下新建styles.scss并在组件中引入
+```javascript
+import './styles.scss'
+```
+
+### 集成CSS modules
+- yarn add typings-for-css-modules-loader
+
+- 用typings-for-css-modules-loader替代css-loader
+```javascript
+  {
+    test: /\.scss$/,
+    include: [path.join(__dirname, './src')],
+    use: [
+      'style-loader',
+      {
+        loader: 'typings-for-css-modules-loader',
+        options: {
+          // 使用css modules
+          modules: true,
+          // 类型导出
+          namedExport: true,
+          // 支持驼峰
+          camelCase: true,
+          // 使用sass
+          sass: true
+        }
+      },
+      'sass-loader'
+    ]
+  }
+```
+
+- 更改css的引入方式
+```javascript
+import styles from './styles.scss'
+```
+
+- 这时候可以看见一个错误提示`TS2307: Cannot find module './styles.scss'.`，
+在根目录下新建一个types目录创建一个typed-css-modules.d.ts的文件，内容如下：
+```
+declare module '*.scss' {
+    const content: any
+    export = content
+}
+```
+
+- 这时候build会有一个报错：`TS1149: File name 'F:/demo/webpack-demo/src/pages/Home/styles.scss.d.ts' differs from already included file name 'F:/demo/webpack-demo/src/Pages/Home/styles.scss.d.ts' only in casing.`
+
 
 ### 开发体验优化
 #### 优化引用路径
