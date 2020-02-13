@@ -143,6 +143,18 @@ resolve: {
 import './styles.scss'
 ```
 
+- 配置sass公共的样式
+    - src目录下新建styles文件夹
+    - 在styles文件夹下新建var.scss，并加入如下代码
+    ```scss
+    $red: red;
+    ```
+    - 在其他css文件中引入
+    ```scss
+    @import "../../styles/var.scss";
+    ```
+
+
 ### 集成CSS modules
 - yarn add typings-for-css-modules-loader
 
