@@ -1,7 +1,8 @@
 const path = require('path')
-const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
+const tsImportPluginFactory = require('ts-import-plugin')
+const theme = require('./theme')
 
 module.exports = {
   entry: {
@@ -11,16 +12,25 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: 'ts-loader',
-            options: {}
+        loader: 'ts-loader',
+        options: {
+          transpileOnly: true,
+          getCustomTransformers: () => ({
+            before: [tsImportPluginFactory({
+              libraryName: 'antd',
+              libraryDirectory: 'lib',
+              style: true
+            })]
+          }),
+          compilerOptions: {
+            module: 'es2015'
           }
-        ]
+        },
+        exclude: /node_modules/
       },
       {
         test: /\.scss$/,
+        exclude: /node_modules/,
         include: [path.join(__dirname, './src')],
         use: [
           'style-loader',
@@ -38,6 +48,23 @@ module.exports = {
             }
           },
           'sass-loader'
+        ]
+      },
+      {
+        test: /\.less$/,
+        include: [path.resolve('node_modules')],
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'less-loader',
+            options: {
+              // 禁用在样式里写JS
+              javascriptEnabled: true,
+              // 自定义样式
+              modifyVars: theme
+            }
+          }
         ]
       }
     ]

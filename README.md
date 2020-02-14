@@ -197,6 +197,70 @@ declare module '*.scss' {
 }
 ```
 
+### 集成Antd
+- yarn add antd
+
+- yarn add ts-import-plugin less less-loader
+
+- 修改webpack配置，更改ts-loader配置
+```javascript
+  {
+    test: /\.tsx?$/,
+    loader: 'ts-loader',
+    options: {
+      transpileOnly: true,
+      getCustomTransformers: () => ({
+        before: [tsImportPluginFactory({
+          libraryName: 'antd',
+          libraryDirectory: 'lib',
+          style: true
+        })]
+      }),
+      compilerOptions: {
+        module: 'es2015'
+      }
+    },
+    exclude: /node_modules/
+  }
+```
+- 在loader下加入编译less的loader
+```javascript
+  {
+    test: /\.less$/,
+    include: [path.resolve('node_modules')],
+    use: [
+      'style-loader',
+      'css-loader',
+      {
+        loader: 'less-loader',
+        options: {
+          javascriptEnabled: true,
+        }
+      }
+    ]
+  }
+```
+
+- 在根目录下新建一个theme.js，用于修改antd的主题，并修改less-loader下的配置
+```javascript
+// theme.js
+module.exports = {
+  'primary-color': '#1DA57A',
+  'link-color': '#1DA57A',
+  'border-radius-base': '2px'
+}
+
+// webpack
+const theme = require('./theme')
+{
+    loader: 'less-loader',
+    options: {
+        javascriptEnabled: true,
+        modifyVars: theme
+    }
+}
+```
+
 ### 开发体验优化
 #### 优化引用路径
 - yarn add --dev tsconfig-paths-webpack-plugin
