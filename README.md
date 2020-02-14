@@ -267,6 +267,13 @@ const theme = require('./theme')
 
 - 在webpack的devServer中加入`historyApiFallback: true`
 
+### 集成redux
+- yarn add redux react-redux
+
+- yarn add @types/react-redux
+
+
+
 ### 开发体验优化
 #### 优化引用路径
 - yarn add --dev tsconfig-paths-webpack-plugin

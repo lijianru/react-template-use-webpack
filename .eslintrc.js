@@ -28,6 +28,7 @@ module.exports = {
             "anonymous": "never",
             "named": "never",
             "asyncArrow": "always"
-        }]
+        }],
+        "handle-callback-err": "off"
     }
 };

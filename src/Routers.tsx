@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Switch, Route } from 'react-router-dom'
+import Home from 'Pages/Home'
 
 export default function Routers() {
   return (
@@ -15,9 +16,6 @@ export default function Routers() {
       </Route>
     </Switch>
   )
-}
-function Home() {
-  return <h2>Home</h2>
 }
 
 function About() {
