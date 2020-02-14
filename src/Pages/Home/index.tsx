@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Header from 'Components/Header'
+import Header from 'Components/Navigation'
 import styles from './styles.scss'
 import { Button } from 'antd'
 

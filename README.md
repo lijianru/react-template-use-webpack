@@ -154,7 +154,6 @@ import './styles.scss'
     @import "../../styles/var.scss";
     ```
 
-
 ### 集成CSS modules
 - yarn add typings-for-css-modules-loader
 
@@ -260,6 +259,13 @@ const theme = require('./theme')
     }
 }
 ```
+
+### 集成React-router-dom
+- yarn add react-router-dom
+
+- yarn add @types/react-router-dom --dev
+
+- 在webpack的devServer中加入`historyApiFallback: true`
 
 ### 开发体验优化
 #### 优化引用路径

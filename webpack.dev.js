@@ -7,6 +7,7 @@ module.exports = webpackMerge(webpackCommon, {
   devServer: {
     open: true,
     hot: true,
+    historyApiFallback: true
   },
   output: {
     path: path.join(__dirname, './dist'),
