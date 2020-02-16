@@ -5,7 +5,8 @@ module.exports = {
     },
     "extends": [
         "plugin:react/recommended",
-        "standard"
+        "standard",
+        "plugin:@typescript-eslint/recommended"
     ],
     "globals": {
         "Atomics": "readonly",
@@ -30,6 +31,6 @@ module.exports = {
             "asyncArrow": "always"
         }],
         "handle-callback-err": "off",
-        "comma-dangle": [2, "always-multiline"],
+        "comma-dangle": "off",
     }
 };

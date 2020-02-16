@@ -5,25 +5,30 @@ import Navigation from './Components/Navigation'
 import Routers from './Routers'
 import styles from 'App.scss'
 
+import { Provider } from 'react-redux'
+import store from './redux/store'
+
 const { Header, Content, Footer } = Layout
 
 export default class App extends React.Component {
   render() {
     return (
-      <Router>
-        <Layout className={styles.app}>
-          <Navigation />
-          <Layout>
-            <Header className={styles.header} />
-            <Content className={styles.container}>
-              <div className={styles.content}>
-                <Routers />
-              </div>
-            </Content>
-            <Footer className={styles.footer}>Ant Design ©2018 Created by Ant UED</Footer>
+      <Provider store={store}>
+        <Router>
+          <Layout className={styles.app}>
+            <Navigation />
+            <Layout>
+              <Header className={styles.header} />
+              <Content className={styles.container}>
+                <div className={styles.content}>
+                  <Routers />
+                </div>
+              </Content>
+              <Footer className={styles.footer}>Ant Design ©2018 Created by Ant UED</Footer>
+            </Layout>
           </Layout>
-        </Layout>
-      </Router>
+        </Router>
+      </Provider>
     )
   }
 }

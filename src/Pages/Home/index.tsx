@@ -1,43 +1,35 @@
 import * as React from 'react'
-import { Button, Table } from 'antd'
-import axios from 'axios'
+import { Button } from 'antd'
+import { connect } from 'react-redux'
+import { ThunkDispatch } from 'redux-thunk'
 
-interface Props {}
-interface State {
-  list: any[]
+import { RootState } from '../../redux/store'
+import { fetchData } from '../../redux/actions/examples'
+import { FetchDataType } from '../../redux/reducers/examples'
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface State {}
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface OwnProps {}
+
+interface DispatchProps {
+  getData: () => void;
 }
 
-const columns = [
-  {
-    title: 'title',
-    dataIndex: 'title',
-    key: 'title',
-  },
-  {
-    title: 'last_reply_at',
-    dataIndex: 'last_reply_at',
-    key: 'last_reply_at',
-  },
-  {
-    title: 'create_at',
-    dataIndex: 'create_at',
-    key: 'create_at',
-  },
-]
+interface StateProps {
+  data: FetchDataType;
+}
 
-@log
+type Props = StateProps & OwnProps & DispatchProps
+
 class Home extends React.Component<Props, State> {
-  state = { list: [] }
   getData() {
-    axios.get('https://cnodejs.org/api/v1/topics').then(resp => {
-      console.table(resp.data.data)
-      this.setState({ list: [...resp.data.data] })
-    })
+    this.props.getData()
   }
 
   render() {
-    const { list } = this.state
-
+    console.log(this.props.data)
     return (
       <div>
         <section>
@@ -49,15 +41,31 @@ class Home extends React.Component<Props, State> {
             TEST
           </Button>
         </section>
-        // @ts-ignore
-        <Table columns={columns} dataSource={list} rowKey={item => item.id} />
       </div>
     )
   }
 }
 
-export default Home
-
-function log(e: any) {
-  console.log(e)
+const mapStateToProps = (states: RootState, ownProps: OwnProps): StateProps => {
+  return {
+    data: states.example.accessToken,
+  }
 }
+
+const mapDispatchToProps = (
+  dispatch: ThunkDispatch<{}, {}, any>,
+  ownProps: OwnProps
+): DispatchProps => {
+  return {
+    getData: async () => {
+      await dispatch(fetchData())
+    },
+  }
+}
+
+export default connect<StateProps, DispatchProps, OwnProps>(
+  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+  // @ts-ignore
+  mapStateToProps,
+  mapDispatchToProps
+)(Home)
