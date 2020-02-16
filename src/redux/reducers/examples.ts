@@ -6,10 +6,10 @@ export interface FetchDataType {
   error?: Error;
 }
 export interface State {
-  accessToken: FetchDataType;
+  example: FetchDataType;
 }
 
-export const accessToken = (state: FetchDataType = { isFetching: false }, action: Action): FetchDataType => {
+export const example = (state: FetchDataType = { isFetching: false }, action: Action): FetchDataType => {
   switch (action.type) {
     case SET_FETCHING:
       return { ...state, isFetching: action.isFetching }

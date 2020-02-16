@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import { State, accessToken } from './reducers/examples'
+import { State, example } from './reducers/examples'
 
 export default combineReducers<State>({
-  accessToken,
+  example,
 })

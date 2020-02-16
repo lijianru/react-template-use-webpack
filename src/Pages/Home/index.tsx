@@ -48,7 +48,7 @@ class Home extends React.Component<Props, State> {
 
 const mapStateToProps = (states: RootState, ownProps: OwnProps): StateProps => {
   return {
-    data: states.example.accessToken,
+    data: states.example,
   }
 }
 
