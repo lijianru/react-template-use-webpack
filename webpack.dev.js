@@ -7,14 +7,15 @@ module.exports = webpackMerge(webpackCommon, {
   devServer: {
     open: true,
     hot: true,
-    historyApiFallback: true
+    historyApiFallback: true,
   },
   output: {
     path: path.join(__dirname, './dist'),
-    filename: '[name].js'
+    filename: '[name].js',
   },
   plugins: [
     new Webpack.NamedModulesPlugin(),
-    new Webpack.HotModuleReplacementPlugin()
-  ]
+    new Webpack.HotModuleReplacementPlugin(),
+  ],
+  devtool: 'cheap-module-eval-source-map',
 })

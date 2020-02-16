@@ -333,6 +333,28 @@ if (module.hot) {
 }
 ```
 
+#### eslint & prettier
+- yarn add eslint prettier --dev
+
+- ./node_modules/.bin/eslint --init 按照它询问的问题最终生成一个eslint的配置文件
+
+- 在根目录下创建一个prettier.config.js的文件并在里边加入如下配置
+```javascript
+module.exports = {
+  bracketSpacing: true,
+  printWidth: 100,
+  trailingComma: 'es5',
+  tabWidth: 2,
+  semi: false,
+  singleQuote: true,
+}
+```
+
+#### source-map
+- 在tsconfig.json中将source-map设置为true
+- 在webpack.dev.js中将加入devtool: 'cheap-module-eval-source-map'
+- 在webpack.build.js中将加入devtool: 'source-map'
+
 ### build
 在之前我们在package.json中添加了一条配置`"build": "webpack"`，并没有区分环境。
 接下来我们先将webpack的配置区分开来，然后再分别配置测试和生产环境。
@@ -487,23 +509,6 @@ optimization: {
 output: {
   path: path.join(__dirname, './dist'),
   filename: '[name].[contenthash].js'
-}
-```
-
-### eslint & prettier
-- yarn add eslint prettier --dev
-
-- ./node_modules/.bin/eslint --init 按照它询问的问题最终生成一个eslint的配置文件
-
-- 在根目录下创建一个prettier.config.js的文件并在里边加入如下配置
-```javascript
-module.exports = {
-  bracketSpacing: true,
-  printWidth: 100,
-  trailingComma: 'es5',
-  tabWidth: 2,
-  semi: false,
-  singleQuote: true,
 }
 ```
 

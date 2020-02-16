@@ -29,6 +29,7 @@ module.exports = {
             "named": "never",
             "asyncArrow": "always"
         }],
-        "handle-callback-err": "off"
+        "handle-callback-err": "off",
+        "comma-dangle": [2, "always-multiline"],
     }
 };

@@ -6,7 +6,7 @@ const theme = require('./theme')
 
 module.exports = {
   entry: {
-    app: path.join(__dirname, './src/index.tsx')
+    app: path.join(__dirname, './src/index.tsx'),
   },
   module: {
     rules: [
@@ -19,14 +19,14 @@ module.exports = {
             before: [tsImportPluginFactory({
               libraryName: 'antd',
               libraryDirectory: 'lib',
-              style: true
-            })]
+              style: true,
+            })],
           }),
           compilerOptions: {
-            module: 'es2015'
-          }
+            module: 'es2015',
+          },
         },
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.scss$/,
@@ -44,11 +44,11 @@ module.exports = {
               // 支持驼峰
               camelCase: true,
               // 使用sass
-              sass: true
-            }
+              sass: true,
+            },
           },
-          'sass-loader'
-        ]
+          'sass-loader',
+        ],
       },
       {
         test: /\.less$/,
@@ -62,22 +62,22 @@ module.exports = {
               // 禁用在样式里写JS
               javascriptEnabled: true,
               // 自定义样式
-              modifyVars: theme
-            }
-          }
-        ]
-      }
-    ]
+              modifyVars: theme,
+            },
+          },
+        ],
+      },
+    ],
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
     plugins: [new TsconfigPathsPlugin({
-      configFile: path.join(__dirname, './tsconfig.json')
-    })]
+      configFile: path.join(__dirname, './tsconfig.json'),
+    })],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, './template.html')
-    })
-  ]
+      template: path.join(__dirname, './template.html'),
+    }),
+  ],
 }
