@@ -1,5 +1,6 @@
 import { ThunkAction, ThunkDispatch } from 'redux-thunk'
 import { AnyAction } from 'redux'
+import axios, { AxiosResponse } from 'axios'
 
 export const SET_FETCHING = 'set fetching'
 export const SET_FETCHED = 'set fetched'
@@ -33,16 +34,13 @@ export const setFetchError = (error: Error): SetFetchError => {
   return { type: SET_FETCH_ERROR, error }
 }
 
-export const fetchData = (): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
-  // 调用 API
-  return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
-    return new Promise<void>((resolve) => {
-      dispatch(setFetching(true))
-      console.log('Login in progress')
-      setTimeout(() => {
-        dispatch(setFetched('this_is_access_token'))
-        resolve()
-      }, 3000)
-    })
+export const fetchData = () => async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
+  dispatch(setFetching(true))
+
+  try {
+    const data: AxiosResponse<string> = await axios.get('https://cnodejs.org/api/v1/topics')
+    dispatch(setFetched(data.data))
+  } catch (err) {
+    dispatch(setFetchError(err))
   }
 }
