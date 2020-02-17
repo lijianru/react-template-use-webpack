@@ -1,6 +1,6 @@
 import { ActionCreator, Dispatch } from 'redux'
 import { ThunkAction } from 'redux-thunk'
-import axios from 'axios'
+import { characterService } from '../../utils/service/api'
 
 // action type 的枚举
 import { Character, CharacterState } from '../reducers/characterReducer'
@@ -56,8 +56,8 @@ export const getAllCharacters: ActionCreator<ThunkAction<
   return async (dispatch: Dispatch): Promise<void> => {
     dispatch(fetching(true))
     try {
-      const response = await axios.get('https://swapi.co/api/people/')
-      dispatch(fetchedData(response.data.results))
+      const response = await characterService()
+      dispatch(fetchedData(response.results))
     } catch (err) {
       dispatch(fetchedError(err))
     }

@@ -1,6 +1,6 @@
 import { ActionCreator, Dispatch } from 'redux'
 import { ThunkAction } from 'redux-thunk'
-import axios from 'axios'
+import { exampleService } from '../../utils/service/api'
 
 import { Example, ExampleState } from '../reducers/exampleReducer'
 
@@ -57,8 +57,8 @@ export const getAllExamples: ActionCreator<ThunkAction<
     return async (dispatch: Dispatch): Promise<void> => {
       dispatch(setFetching(true))
       try {
-        const response = await axios.get('https://cnodejs.org/api/v1/topics')
-        dispatch(setFetched(response.data.data))
+        const response = await exampleService()
+        dispatch(setFetched(response.data))
       } catch (err) {
         dispatch(setFetchError(err))
       }
