@@ -29,7 +29,7 @@ export interface CharacterGetErrorAction {
   error: Error;
 }
 
-export type CharacterActions = CharacterGettingAction | CharacterGetAllAction | CharacterGetErrorAction
+export type CharacterAction = CharacterGettingAction | CharacterGetAllAction | CharacterGetErrorAction
 
 const fetching = (isLoading: boolean) => ({
   type: CharacterActionTypes.SET_FETCHING,

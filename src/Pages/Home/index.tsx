@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 
 import { AppState } from '../../redux/store'
-import { getAllCharacters } from '../../redux/actions/CharacterActions'
+import { getAllCharacters } from '../../redux/actions/characterAction'
 import { CharacterState } from '../../redux/reducers/characterReducer'
 
 type State = {}

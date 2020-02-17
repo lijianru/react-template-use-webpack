@@ -1,6 +1,6 @@
 // Import Reducer type
 import { Reducer } from 'redux'
-import { CharacterActions, CharacterActionTypes } from '../actions/CharacterActions'
+import { CharacterAction, CharacterActionTypes } from '../actions/characterAction'
 
 // Define the Character type
 export interface Character {
@@ -35,7 +35,7 @@ const initialCharacterState: CharacterState = {
   characters: [],
 }
 
-export const characterReducer: Reducer<CharacterState, CharacterActions> = (
+export const characterReducer: Reducer<CharacterState, CharacterAction> = (
   state = initialCharacterState,
   action
 ) => {
