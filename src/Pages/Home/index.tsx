@@ -62,7 +62,7 @@ const mapDispatchToProps = (
   ownProps: OwnProps
 ): DispatchProps => {
   return {
-    getAllCharacters: async () => {
+    getAllCharacters: async () => {``
       await dispatch(getAllCharacters())
     },
     getAllExamples: async () => {
@@ -71,9 +71,7 @@ const mapDispatchToProps = (
   }
 }
 
-export default connect<StateProps, DispatchProps, OwnProps>(
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-  // @ts-ignore
+export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Home)
