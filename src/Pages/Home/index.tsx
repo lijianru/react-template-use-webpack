@@ -62,7 +62,7 @@ const mapDispatchToProps = (
   ownProps: OwnProps
 ): DispatchProps => {
   return {
-    getAllCharacters: async () => {``
+    getAllCharacters: async () => {
       await dispatch(getAllCharacters())
     },
     getAllExamples: async () => {
