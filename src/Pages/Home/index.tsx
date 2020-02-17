@@ -7,17 +7,15 @@ import { AppState } from '../../redux/store'
 import { getAllCharacters } from '../../redux/actions/CharacterActions'
 import { CharacterState } from '../../redux/reducers/characterReducer'
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface State {}
+type State = {}
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface OwnProps {}
+type OwnProps = {}
 
-interface DispatchProps {
+type DispatchProps = {
   getAllCharacters: () => void;
 }
 
-interface StateProps {
+type StateProps = {
   data: CharacterState;
 }
 
