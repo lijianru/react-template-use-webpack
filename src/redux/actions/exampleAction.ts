@@ -4,13 +4,14 @@ import axios from 'axios'
 
 import { Example, ExampleState } from '../reducers/exampleReducer'
 
+// action type 的枚举
 export enum ExampleActionTypes {
   SET_FETCHING = 'set fetching',
   SET_FETCHED = 'set fetched',
   SET_FETCH_ERROR = 'set fetch error'
 }
 
-// Action Definition
+// 各种Action的类型
 export interface SetFetchingAction {
   type: ExampleActionTypes.SET_FETCHING;
   isLoading: boolean;
@@ -24,10 +25,10 @@ export interface SetFetchErrorAction {
   error: Error;
 }
 
-// Union Action Types
+// Action的类型
 export type Action = SetFetchingAction | SetFetchedAction | SetFetchErrorAction
 
-// Action Creators
+// 创建action
 export const setFetching = (isLoading: boolean): SetFetchingAction => {
   return {
     type: ExampleActionTypes.SET_FETCHING,
@@ -48,12 +49,12 @@ export const setFetchError = (error: Error): SetFetchErrorAction => {
 }
 
 export const getAllExamples: ActionCreator<ThunkAction<
-  Promise<any>,
+  Promise<void>,
   ExampleState,
   null,
   SetFetchedAction
   >> = () => {
-    return async (dispatch: Dispatch) => {
+    return async (dispatch: Dispatch): Promise<void> => {
       dispatch(setFetching(true))
       try {
         const response = await axios.get('https://cnodejs.org/api/v1/topics')

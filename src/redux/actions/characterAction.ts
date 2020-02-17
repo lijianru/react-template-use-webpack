@@ -1,9 +1,8 @@
-// Import redux types
 import { ActionCreator, Dispatch } from 'redux'
 import { ThunkAction } from 'redux-thunk'
 import axios from 'axios'
 
-// Import Character Typing
+// action type 的枚举
 import { Character, CharacterState } from '../reducers/characterReducer'
 
 // Create Action Constants
@@ -13,7 +12,7 @@ export enum CharacterActionTypes {
   SET_FETCH_ERROR = 'set fetch error',
 }
 
-// Interface for Get All Action Type
+// 各种Action的类型
 export interface CharacterGettingAction {
   type: CharacterActionTypes.SET_FETCHING;
   isLoading: boolean;
@@ -29,30 +28,32 @@ export interface CharacterGetErrorAction {
   error: Error;
 }
 
+// Action的类型
 export type CharacterAction = CharacterGettingAction | CharacterGetAllAction | CharacterGetErrorAction
 
-const fetching = (isLoading: boolean) => ({
+// 创建action
+const fetching = (isLoading: boolean): CharacterGettingAction => ({
   type: CharacterActionTypes.SET_FETCHING,
   isLoading,
 })
 
-const fetchedData = (characters: CharacterState) => ({
+const fetchedData = (characters: Character[]): CharacterGetAllAction => ({
   characters,
   type: CharacterActionTypes.SET_FETCHED,
 })
 
-const fetchedError = (error: Error) => ({
+const fetchedError = (error: Error): CharacterGetErrorAction => ({
   error,
   type: CharacterActionTypes.SET_FETCH_ERROR,
 })
 
 export const getAllCharacters: ActionCreator<ThunkAction<
-  Promise<any>,
+  Promise<void>,
   CharacterState,
   null,
   CharacterGetAllAction
 >> = () => {
-  return async (dispatch: Dispatch) => {
+  return async (dispatch: Dispatch): Promise<void> => {
     dispatch(fetching(true))
     try {
       const response = await axios.get('https://swapi.co/api/people/')

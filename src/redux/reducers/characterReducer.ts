@@ -1,8 +1,6 @@
-// Import Reducer type
 import { Reducer } from 'redux'
 import { CharacterAction, CharacterActionTypes } from '../actions/characterAction'
 
-// Define the Character type
 export interface Character {
   name: string;
   height: string;
@@ -22,14 +20,12 @@ export interface Character {
   url: string;
 }
 
-// Define the Character State
 export interface CharacterState {
   readonly isLoading: boolean;
   readonly characters: Character[];
   readonly error?: Error;
 }
 
-// Define the initial state
 const initialCharacterState: CharacterState = {
   isLoading: false,
   characters: [],

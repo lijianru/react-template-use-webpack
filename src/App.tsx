@@ -12,7 +12,7 @@ const { Header, Content, Footer } = Layout
 const store = configureStore()
 
 export default class App extends React.Component {
-  render() {
+  render(): React.ReactElement {
     return (
       <Provider store={store}>
         <Router>
