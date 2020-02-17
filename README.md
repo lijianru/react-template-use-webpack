@@ -268,9 +268,159 @@ const theme = require('./theme')
 - 在webpack的devServer中加入`historyApiFallback: true`
 
 ### 集成redux
-- yarn add redux react-redux
+- yarn add redux react-redux redux-thunk redux-logger
 
-- yarn add @types/react-redux
+- yarn add @types/react-redux @types/redux-logger @types/redux-thunk redux-devtools-extension
+
+- 在src目录下新建redux文件夹，并在其中建立actions和reducers文件夹
+- 在actions中新建example.ts文件
+```typescript
+import { ActionCreator, Dispatch } from 'redux'
+import { ThunkAction } from 'redux-thunk'
+import axios from 'axios'
+
+import { Example, ExampleState } from '../reducers/exampleReducer'
+
+// action type 的枚举
+export enum ExampleActionTypes {
+  SET_FETCHING = 'set fetching',
+  SET_FETCHED = 'set fetched',
+  SET_FETCH_ERROR = 'set fetch error'
+}
+
+// 各种Action的类型
+export interface SetFetchingAction {
+  type: ExampleActionTypes.SET_FETCHING;
+  isLoading: boolean;
+}
+export interface SetFetchedAction {
+  type: ExampleActionTypes.SET_FETCHED;
+  examples: Example[];
+}
+export interface SetFetchErrorAction {
+  type: ExampleActionTypes.SET_FETCH_ERROR;
+  error: Error;
+}
+
+// Action的类型
+export type ExampleAction = SetFetchingAction | SetFetchedAction | SetFetchErrorAction
+
+// 创建action
+export const setFetching = (isLoading: boolean): SetFetchingAction => {
+  return {
+    type: ExampleActionTypes.SET_FETCHING,
+    isLoading
+  }
+}
+export const setFetched = (examples: Example[]): SetFetchedAction => {
+  return {
+    type: ExampleActionTypes.SET_FETCHED,
+    examples
+  }
+}
+export const setFetchError = (error: Error): SetFetchErrorAction => {
+  return {
+    type: ExampleActionTypes.SET_FETCH_ERROR,
+    error
+  }
+}
+
+export const getAllExamples: ActionCreator<ThunkAction<
+  Promise<void>,
+  ExampleState,
+  null,
+  SetFetchedAction
+  >> = () => {
+    return async (dispatch: Dispatch): Promise<void> => {
+      dispatch(setFetching(true))
+      try {
+        const response = await axios.get('https://cnodejs.org/api/v1/topics')
+        dispatch(setFetched(response.data.data))
+      } catch (err) {
+        dispatch(setFetchError(err))
+      }
+    }
+  }
+```
+
+- 在reducer中新建example.ts文件
+```typescript
+import { Reducer } from 'redux'
+import { ExampleAction, ExampleActionTypes } from '../actions/exampleAction'
+
+export interface Example {
+  id: string;
+}
+
+export interface ExampleState {
+  readonly isLoading: boolean;
+  readonly examples: Example[];
+  readonly error?: Error;
+}
+
+const initialExampleState: ExampleState = {
+  isLoading: false,
+  examples: [],
+}
+
+export const exampleReducer: Reducer<ExampleState, ExampleAction> = (
+  state = initialExampleState,
+  action
+) => {
+  switch (action.type) {
+    case ExampleActionTypes.SET_FETCHING:
+      return {
+        ...state,
+        isLoading: action.isLoading
+      }
+    case ExampleActionTypes.SET_FETCHED:
+      return {
+        ...state,
+        examples: action.examples
+      }
+    case ExampleActionTypes.SET_FETCH_ERROR:
+      return {
+        ...state,
+        error: action.error
+      }
+    default:
+      return state
+  }
+}
+```
+
+- 在redux文件夹下新建store.ts文件
+```typescript
+import { applyMiddleware, combineReducers, createStore, Store } from 'redux'
+import thunk from 'redux-thunk'
+import { createLogger } from 'redux-logger'
+import { composeWithDevTools } from 'redux-devtools-extension'
+
+// 导入 reducers and state type
+import { characterReducer, CharacterState } from './reducers/characterReducer'
+import { exampleReducer, ExampleState } from './reducers/exampleReducer'
+
+// 为App创建一个State type
+export interface AppState {
+  characterState: CharacterState;
+  exampleState: ExampleState;
+}
+
+// 创建 root reducer
+const rootReducer = combineReducers<AppState>({
+  characterState: characterReducer,
+  exampleState: exampleReducer,
+})
+
+const composeEnhancers = composeWithDevTools({
+  // 在这里指定名称，actionsBlacklist, actionsCreators和其他选项如果需要
+})
+
+// 创建store
+export default function configureStore(): Store<AppState> {
+  return createStore(rootReducer, undefined, composeEnhancers(applyMiddleware(thunk, createLogger())))
+}
+```
 
 
 
