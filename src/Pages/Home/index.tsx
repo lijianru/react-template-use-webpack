@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 
 import { AppState } from '../../redux/store'
-import { getAllCharacters, CharacterAction } from '../../redux/actions/characterAction'
-import { getAllExamples, ExampleAction } from '../../redux/actions/exampleAction'
+import { getAllCharacters } from '../../redux/actions/characterAction'
+import { getAllExamples } from '../../redux/actions/exampleAction'
 import { CharacterState } from '../../redux/reducers/characterReducer'
 import { ExampleState } from '../../redux/reducers/exampleReducer'
 
@@ -60,7 +60,7 @@ const mapStateToProps = (states: AppState, ownProps: OwnProps): StateProps => {
 }
 
 const mapDispatchToProps = (
-  dispatch: ThunkDispatch<{}, {}, any>,
+  dispatch: ThunkDispatch<AppState, undefined, any>,
   // ownProps 参数未使用
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   ownProps: OwnProps
