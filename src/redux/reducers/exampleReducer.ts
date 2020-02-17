@@ -1,5 +1,5 @@
 import { Reducer } from 'redux'
-import { Action, ExampleActionTypes } from '../actions/exampleAction'
+import { ExampleAction, ExampleActionTypes } from '../actions/exampleAction'
 
 export interface Example {
   id: string;
@@ -16,7 +16,7 @@ const initialExampleState: ExampleState = {
   examples: [],
 }
 
-export const exampleReducer: Reducer<ExampleState, Action> = (
+export const exampleReducer: Reducer<ExampleState, ExampleAction> = (
   state = initialExampleState,
   action
 ) => {

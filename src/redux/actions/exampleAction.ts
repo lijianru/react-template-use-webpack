@@ -26,7 +26,7 @@ export interface SetFetchErrorAction {
 }
 
 // Action的类型
-export type Action = SetFetchingAction | SetFetchedAction | SetFetchErrorAction
+export type ExampleAction = SetFetchingAction | SetFetchedAction | SetFetchErrorAction
 
 // 创建action
 export const setFetching = (isLoading: boolean): SetFetchingAction => {

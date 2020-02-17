@@ -5,7 +5,7 @@ import { ThunkDispatch } from 'redux-thunk'
 
 import { AppState } from '../../redux/store'
 import { getAllCharacters, CharacterAction } from '../../redux/actions/characterAction'
-import { getAllExamples, Action } from '../../redux/actions/exampleAction'
+import { getAllExamples, ExampleAction } from '../../redux/actions/exampleAction'
 import { CharacterState } from '../../redux/reducers/characterReducer'
 import { ExampleState } from '../../redux/reducers/exampleReducer'
 
