@@ -17,8 +17,9 @@ const toLogin = () => {
 /**
  * 请求失败后的错误统一处理
  * @param {Number} status 请求失败的状态码
+ * @param {String} other 错误消息
  */
-const errorHandle = (status: number, other: any) => {
+const errorHandle = (status: number, other: string) => {
   // 状态码判断
   switch (status) {
     // 401: 未登录状态，跳转登录页
@@ -47,16 +48,13 @@ const instance = axios.create({ timeout: 1000 * 60 })
 // 设置post请求头
 instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
-/**
- * 请求拦截器
- * 每次请求前，如果存在token则在请求头中携带token
- */
+// TODO 取消请求（最终实现：1. 路由切换时取消请求；2. 重复点击按钮时取消请求；3. 组件卸载时取消请求）
+// TODO 请求跨域
+// TODO 处理接口异常（方案：1. 直接dispatch到store中；2. 组装异常将异常返回给上层调用的action，dispatch到对应的组件；3.直接在此处弹出提示）
+// 请求拦截器
 instance.interceptors.request.use(
   config => {
-    // 登录流程控制中，根据本地是否存在token判断用户的登录情况
-    // 但是即使token存在，也有可能token是过期的，所以在每次的请求头中携带token
-    // 后台根据携带的token判断用户的登录情况，并返回给我们对应的状态码
-    // 而后我们可以在响应拦截器中，根据状态码进行一些统一的操作。
+    // TODO 在发出请求前对请求头进行处理，添加token，设置Content-Type，根据Content-Type转换传入参数或Body的格式等等
     const token = localStorage.getItem('token')
     token && (config.headers.Authorization = token)
     return config
@@ -66,7 +64,9 @@ instance.interceptors.request.use(
 // 响应拦截器
 instance.interceptors.response.use(
   // 请求成功
-  res => res.status === 200 ? Promise.resolve(res.data) : Promise.reject(res),
+  res => {
+    return Promise.resolve(res.data)
+  },
   // 请求失败
   error => {
     const { response } = error
