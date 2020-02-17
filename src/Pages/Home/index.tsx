@@ -5,7 +5,9 @@ import { ThunkDispatch } from 'redux-thunk'
 
 import { AppState } from '../../redux/store'
 import { getAllCharacters } from '../../redux/actions/characterAction'
+import { getAllExamples } from '../../redux/actions/exampleAction'
 import { CharacterState } from '../../redux/reducers/characterReducer'
+import { ExampleState } from '../../redux/reducers/exampleReducer'
 
 type State = {}
 
@@ -13,10 +15,12 @@ type OwnProps = {}
 
 type DispatchProps = {
   getAllCharacters: () => void;
+  getAllExamples: () => void;
 }
 
 type StateProps = {
-  data: CharacterState;
+  characters: CharacterState;
+  examples: ExampleState;
 }
 
 type Props = StateProps & OwnProps & DispatchProps
@@ -24,10 +28,12 @@ type Props = StateProps & OwnProps & DispatchProps
 class Home extends React.Component<Props, State> {
   getData() {
     this.props.getAllCharacters()
+    this.props.getAllExamples()
   }
 
   render() {
-    console.log(this.props.data)
+    console.table(this.props.characters.characters)
+    console.table(this.props.examples.examples)
     return (
       <div>
         <section>
@@ -46,7 +52,8 @@ class Home extends React.Component<Props, State> {
 
 const mapStateToProps = (states: AppState, ownProps: OwnProps): StateProps => {
   return {
-    data: states.characterState,
+    characters: states.characterState,
+    examples: states.exampleState,
   }
 }
 
@@ -57,6 +64,9 @@ const mapDispatchToProps = (
   return {
     getAllCharacters: async () => {
       await dispatch(getAllCharacters())
+    },
+    getAllExamples: async () => {
+      await dispatch(getAllExamples())
     },
   }
 }
