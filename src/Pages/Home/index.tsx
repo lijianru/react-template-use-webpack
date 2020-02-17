@@ -3,9 +3,9 @@ import { Button } from 'antd'
 import { connect } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 
-import { RootState } from '../../redux/store'
-import { fetchData } from '../../redux/actions/examples'
-import { FetchDataType } from '../../redux/reducers/examples'
+import { AppState } from '../../redux/store'
+import { getAllCharacters } from '../../redux/actions/CharacterActions'
+import { CharacterState } from '../../redux/reducers/characterReducer'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface State {}
@@ -14,18 +14,18 @@ interface State {}
 interface OwnProps {}
 
 interface DispatchProps {
-  getData: () => void;
+  getAllCharacters: () => void;
 }
 
 interface StateProps {
-  data: FetchDataType;
+  data: CharacterState;
 }
 
 type Props = StateProps & OwnProps & DispatchProps
 
 class Home extends React.Component<Props, State> {
   getData() {
-    this.props.getData()
+    this.props.getAllCharacters()
   }
 
   render() {
@@ -46,9 +46,9 @@ class Home extends React.Component<Props, State> {
   }
 }
 
-const mapStateToProps = (states: RootState, ownProps: OwnProps): StateProps => {
+const mapStateToProps = (states: AppState, ownProps: OwnProps): StateProps => {
   return {
-    data: states.example,
+    data: states.characterState,
   }
 }
 
@@ -57,8 +57,8 @@ const mapDispatchToProps = (
   ownProps: OwnProps
 ): DispatchProps => {
   return {
-    getData: async () => {
-      await dispatch(fetchData())
+    getAllCharacters: async () => {
+      await dispatch(getAllCharacters())
     },
   }
 }

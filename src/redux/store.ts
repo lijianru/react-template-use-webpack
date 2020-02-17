@@ -1,9 +1,25 @@
-import { createLogger } from 'redux-logger'
-import { createStore, applyMiddleware } from 'redux'
+import { applyMiddleware, combineReducers, createStore, Store } from 'redux'
 import thunk from 'redux-thunk'
+import { createLogger } from 'redux-logger'
 
-import rootReducer from './rootReducer'
+// Import reducers and state type
+import { characterReducer, CharacterState } from './reducers/characterReducer'
+// import { exampleReducer, ExampleState } from './reducers/examples'
 
-const middleware = applyMiddleware(thunk, createLogger())
+// Create an interface for the application state
+export interface AppState {
+  characterState: CharacterState;
+  // exampleState: ExampleState;
+}
 
-export default createStore(rootReducer, middleware)
+// Create the root reducer
+const rootReducer = combineReducers<AppState>({
+  characterState: characterReducer,
+  // exampleState: exampleReducer,
+})
+
+// Create a configure store function of type `IAppState`
+export default function configureStore(): Store<AppState, any> {
+  const store = createStore(rootReducer, undefined, applyMiddleware(thunk, createLogger()))
+  return store
+}

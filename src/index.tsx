@@ -8,8 +8,10 @@ const render = (Component: any) => {
 
 render(App)
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 if (module.hot) {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore
   module.hot.accept('./App.tsx', function () {
     console.log('更新了！')

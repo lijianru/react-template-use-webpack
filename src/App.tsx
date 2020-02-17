@@ -6,9 +6,10 @@ import Routers from './Routers'
 import styles from 'App.scss'
 
 import { Provider } from 'react-redux'
-import store from './redux/store'
+import configureStore from './redux/store'
 
 const { Header, Content, Footer } = Layout
+const store = configureStore()
 
 export default class App extends React.Component {
   render() {
