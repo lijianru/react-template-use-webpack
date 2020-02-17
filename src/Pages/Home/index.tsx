@@ -60,6 +60,8 @@ const mapStateToProps = (states: AppState, ownProps: OwnProps): StateProps => {
 }
 
 const mapDispatchToProps = (
+  // TODO
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dispatch: ThunkDispatch<AppState, undefined, any>,
   // ownProps 参数未使用
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
