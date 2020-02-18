@@ -1,10 +1,9 @@
 import axios from 'axios'
+import { message } from 'antd'
 
-/**
- * 提示函数
- */
-const tip = (msg: string): void => {
-  console.log(msg)
+export interface NextProps {
+  status?: number;
+  message?: string;
 }
 
 /**
@@ -14,31 +13,25 @@ const toLogin = () => {
   // TODO
 }
 
-/**
- * 请求失败后的错误统一处理
- * @param {Number} status 请求失败的状态码
- * @param {String} other 错误消息
- */
-const errorHandle = (status: number, other: string) => {
+const errorHandle = (error: NextProps) => {
   // 状态码判断
-  switch (status) {
+  switch (error.status) {
     // 401: 未登录状态，跳转登录页
     case 401:
+      message.error(error.message)
       toLogin()
       break
     // 403 token过期
     // 清除token并跳转登录页
     case 403:
-      tip('登录过期，请重新登录')
+      message.error(error.message)
       localStorage.removeItem('token')
       toLogin()
       break
     // 404请求不存在
     case 404:
-      tip('请求的资源不存在')
+      message.error(error.message)
       break
-    default:
-      console.log(other)
   }
 }
 
@@ -69,19 +62,24 @@ instance.interceptors.response.use(
   },
   // 请求失败
   error => {
-    const { response } = error
-    if (response) {
-      // 请求已发出，但是不在2xx的范围
-      errorHandle(response.status, response.data.message)
-      return Promise.reject(response)
-    } else {
-      // 处理断网的情况
-      if (!window.navigator.onLine) {
-        console.log('断网啦！')
-      } else {
-        return Promise.reject(error)
-      }
-    }
+    // 处理异常
+    // const { response } = error
+    // const httpError: NextProps = {}
+    // if (response) {
+    //   httpError.status = response.status
+    //   httpError.message = response.data.message
+    // } else {
+    //   // 处理断网的情况
+    //   if (!window.navigator.onLine) {
+    //     httpError.status = 423
+    //     httpError.message = '网络异常！'
+    //   } else {
+    //     httpError.status = 423
+    //     httpError.message = '请重试！'
+    //   }
+    // }
+    // errorHandle(httpError)
+    return Promise.reject(error)
   })
 
 export default instance

@@ -1,12 +1,13 @@
 import * as React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import Home from 'Pages/Home'
+import WrappedLoginForm from 'Pages/Login'
 
 export default function Routers() {
   return (
     <Switch>
-      <Route path="/about">
-        <About />
+      <Route path="/login">
+        <WrappedLoginForm />
       </Route>
       <Route path="/users">
         <Users />
@@ -16,10 +17,6 @@ export default function Routers() {
       </Route>
     </Switch>
   )
-}
-
-function About() {
-  return <h2>About</h2>
 }
 
 function Users() {

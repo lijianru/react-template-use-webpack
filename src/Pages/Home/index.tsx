@@ -32,8 +32,6 @@ class Home extends React.Component<Props, State> {
   }
 
   render(): React.ReactElement {
-    console.table(this.props.characters.characters)
-    console.table(this.props.examples.examples)
     return (
       <div>
         <section>
