@@ -55,6 +55,10 @@ const columns = [
 ]
 
 class CharacterList extends React.Component<Props, State> {
+  componentDidMount(): void {
+    this.props.getAllCharacters()
+  }
+
   getData(): void {
     this.props.getAllCharacters()
   }

@@ -52,6 +52,10 @@ const columns = [
 ]
 
 class Home extends React.Component<Props, State> {
+  componentDidMount(): void {
+    this.props.getAllExamples()
+  }
+
   getData(): void {
     this.props.getAllExamples()
   }
