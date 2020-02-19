@@ -42,7 +42,6 @@ const instance = axios.create({ timeout: 1000 * 60 })
 instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
 // TODO 取消请求（最终实现：1. 路由切换时取消请求；2. 重复点击按钮时取消请求；3. 组件卸载时取消请求）
-// TODO 请求跨域
 // TODO 处理接口异常（方案：1. 直接dispatch到store中；2. 组装异常将异常返回给上层调用的action，dispatch到对应的组件；3.直接在此处弹出提示）
 // 请求拦截器
 instance.interceptors.request.use(

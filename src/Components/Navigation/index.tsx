@@ -26,9 +26,9 @@ export default class Navigation extends React.Component {
             </Link>
           </Menu.Item>
           <Menu.Item key="3">
-            <Link to="/users">
+            <Link to="/character">
               <Icon type="upload" />
-              <span className="nav-text">Users</span>
+              <span className="nav-text">Character</span>
             </Link>
           </Menu.Item>
           <Menu.Item key="9">

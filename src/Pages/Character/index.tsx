@@ -4,56 +4,59 @@ import { connect } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 
 import { AppState } from '../../redux/store'
-import { getAllExamples } from '../../redux/actions/exampleAction'
-import { Example, Author } from '../../redux/reducers/exampleReducer'
+import { getAllCharacters } from '../../redux/actions/characterAction'
+import { Character } from '../../redux/reducers/characterReducer'
 
 type State = {}
 
 type OwnProps = {}
 
 type DispatchProps = {
-  getAllExamples: () => void;
+  getAllCharacters: () => void;
 }
 
 type StateProps = {
-  examples: Example[];
+  characters: Character[];
 }
 
 type Props = StateProps & OwnProps & DispatchProps
 
 const columns = [
   {
-    title: 'Id',
-    dataIndex: 'id',
-    key: 'id',
+    title: 'Name',
+    dataIndex: 'name',
+    key: 'name',
   },
   {
-    title: 'Title',
-    dataIndex: 'title',
-    key: 'title',
+    title: 'Height',
+    dataIndex: 'height',
+    key: 'height',
   },
   {
-    title: 'Author',
-    dataIndex: 'author',
-    key: 'author_id',
-    // eslint-disable-next-line react/display-name
-    render: (author: Author) => (
-      <div>
-        <h3>{author.loginname}</h3>
-        <img src={author.avatar_url}/>
-      </div>
-    )
+    title: 'Mass',
+    dataIndex: 'mass',
+    key: 'mass',
   },
   {
-    title: 'Visit',
-    dataIndex: 'visit_count',
-    key: 'visit_count',
+    title: 'Hair',
+    dataIndex: 'hair_color',
+    key: 'hair_color',
+  },
+  {
+    title: 'Skin',
+    dataIndex: 'skin_color',
+    key: 'skin_color',
+  },
+  {
+    title: 'Eye',
+    dataIndex: 'eye_color',
+    key: 'eye_color',
   },
 ]
 
-class Home extends React.Component<Props, State> {
+class CharacterList extends React.Component<Props, State> {
   getData(): void {
-    this.props.getAllExamples()
+    this.props.getAllCharacters()
   }
 
   render(): React.ReactElement {
@@ -68,7 +71,7 @@ class Home extends React.Component<Props, State> {
             TEST
           </Button>
         </section>
-        <Table columns={columns} dataSource={this.props.examples} />
+        <Table columns={columns} dataSource={this.props.characters} />
       </div>
     )
   }
@@ -78,7 +81,7 @@ class Home extends React.Component<Props, State> {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const mapStateToProps = (states: AppState, ownProps: OwnProps): StateProps => {
   return {
-    examples: states.exampleState.examples,
+    characters: states.characterState.characters,
   }
 }
 
@@ -91,8 +94,8 @@ const mapDispatchToProps = (
   ownProps: OwnProps
 ): DispatchProps => {
   return {
-    getAllExamples: async (): Promise<void> => {
-      await dispatch(getAllExamples())
+    getAllCharacters: async (): Promise<void> => {
+      await dispatch(getAllCharacters())
     },
   }
 }
@@ -100,4 +103,4 @@ const mapDispatchToProps = (
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Home)
+)(CharacterList)
