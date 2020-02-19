@@ -12,7 +12,7 @@ type State = {}
 type OwnProps = {}
 
 type DispatchProps = {
-  getAllCharacters: () => void;
+  getAllCharacters: (params: any) => void;
 }
 
 type StateProps = {
@@ -56,11 +56,11 @@ const columns = [
 
 class CharacterList extends React.Component<Props, State> {
   componentDidMount(): void {
-    this.props.getAllCharacters()
+    this.props.getAllCharacters({ search: 'r2' })
   }
 
   getData(): void {
-    this.props.getAllCharacters()
+    this.props.getAllCharacters({ search: 'r2' })
   }
 
   render(): React.ReactElement {
@@ -98,8 +98,8 @@ const mapDispatchToProps = (
   ownProps: OwnProps
 ): DispatchProps => {
   return {
-    getAllCharacters: async (): Promise<void> => {
-      await dispatch(getAllCharacters())
+    getAllCharacters: async (params: any): Promise<void> => {
+      await dispatch(getAllCharacters(params))
     },
   }
 }

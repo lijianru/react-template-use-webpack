@@ -52,11 +52,11 @@ export const getAllCharacters: ActionCreator<ThunkAction<
   CharacterState,
   null,
   CharacterGetAllAction
->> = () => {
+>> = (params) => {
   return async (dispatch: Dispatch): Promise<void> => {
     dispatch(fetching(true))
     try {
-      const response = await characterService()
+      const response = await characterService(params)
       dispatch(fetchedData(response.results))
     } catch (err) {
       dispatch(fetchedError(err))
