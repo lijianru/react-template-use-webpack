@@ -6,69 +6,81 @@ import axios, {
   AxiosResponse,
 } from 'axios'
 
-// 创建axios实例
+// Create axios instance
 const NextAxios: AxiosInstance = axios.create({
   timeout: 1000 * 60,
   headers: {
-    'Content-Type': 'application/json'
-  }
+    'Content-Type': 'application/json',
+  },
 })
 
-// 请求列表
+// Store the current Active request
 const requestList: string[] = []
-// 取消列表
 const CancelToken: CancelTokenStatic = axios.CancelToken
-const source: {
-  [key: string]: Canceler;
-} = {}
-// 请求拦截器
+// Stores cancel functions for all Active requests
+const source: {[key: string]: Canceler } = {}
+
+// request interceptors
 NextAxios.interceptors.request.use(
   (config: AxiosRequestConfig) => {
-    // 将请求的url和参数拼接成一个字符串，用来标识每一次请求
-    const request = config.url + JSON.stringify(config.params) + JSON.stringify(config.data)
-    config.cancelToken = new CancelToken((cancel: Canceler) => {
-      source[request] = cancel
-    })
+    // The request URL and parameters are spliced into a string to identify each request
+    const request =
+      config.url +
+      JSON.stringify(config.params) +
+      JSON.stringify(config.data)
+    config.cancelToken = new CancelToken(
+      (cancel: Canceler) => {
+        source[request] = cancel
+      }
+    )
     if (requestList.includes(request)) {
-      source[request]('Cancel http request!')
+      source[request]('Cancel HTTP request!')
     } else {
       requestList.push(request)
     }
+
     const token = localStorage.getItem('token')
     token && (config.headers.Authorization = token)
     return config
   },
-  (error: any) => Promise.reject(error))
+  (error: any) => Promise.reject(error)
+)
 
-// 响应拦截器
+// response interceptors
 NextAxios.interceptors.response.use(
-  // 请求成功
+  // request success
   (response: AxiosResponse) => {
-    const request = response.config.url + JSON.stringify(response.config.data)
-    requestList.splice(requestList.findIndex(item => item === request), 1)
+    const request =
+      response.config.url +
+      JSON.stringify(response.config.data)
+    requestList.splice(
+      requestList.findIndex(item => item === request),
+      1
+    )
     return Promise.resolve(response.data)
   },
-  // 请求失败
+  // request error
   (error: any) => {
-    // 如果是取消请求产生的错误
+    // If it is an error from the cancellation request
     if (axios.isCancel(error)) {
       console.error(error.message)
     } else if (error && error.response) {
-      // 处理http异常
+      // Handle a field returned by the backend
       // 401
       // 403
       // 404
       // 422
     } else {
-      // 其他的异常
+      // Ohter error
     }
     return Promise.reject(error)
-  })
+  }
+)
 
-// 取消所有请求（在切换路由的时候）
-export const cancelAllRequest = (): void => {
+// Cancel all requests
+export const cancelAllRequests = (): void => {
   Object.keys((key: string) => {
-    source[key]('Cancel all http request!')
+    source[key]('Cancel all HTTP requests!')
   })
 }
 
