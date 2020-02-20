@@ -25,7 +25,7 @@ const source: {
 NextAxios.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     // 将请求的url和参数拼接成一个字符串，用来标识每一次请求
-    const request = config.url + JSON.stringify(config.data)
+    const request = config.url + JSON.stringify(config.params) + JSON.stringify(config.data)
     config.cancelToken = new CancelToken((cancel: Canceler) => {
       source[request] = cancel
     })
