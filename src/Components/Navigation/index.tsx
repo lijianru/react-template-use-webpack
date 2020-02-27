@@ -11,10 +11,10 @@ export default class Navigation extends React.Component {
         breakpoint="lg"
         collapsedWidth="0"
         onBreakpoint={broken => {
-          console.log(broken)
+          // console.log(broken)
         }}
         onCollapse={(collapsed, type) => {
-          console.log(collapsed, type)
+          // console.log(collapsed, type)
         }}
       >
         <div className="logo" />
@@ -25,16 +25,16 @@ export default class Navigation extends React.Component {
               <span className="nav-text">Home</span>
             </Link>
           </Menu.Item>
-          <Menu.Item key="2">
-            <Link to="/about">
-              <Icon type="video-camera" />
-              <span className="nav-text">About</span>
+          <Menu.Item key="3">
+            <Link to="/character">
+              <Icon type="upload" />
+              <span className="nav-text">Character</span>
             </Link>
           </Menu.Item>
-          <Menu.Item key="3">
-            <Link to="/users">
-              <Icon type="upload" />
-              <span className="nav-text">Users</span>
+          <Menu.Item key="9">
+            <Link to="/login">
+              <Icon type="video-camera" />
+              <span className="nav-text">Login</span>
             </Link>
           </Menu.Item>
         </Menu>

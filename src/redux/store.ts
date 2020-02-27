@@ -6,17 +6,20 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 // 导入 reducers and state type
 import { characterReducer, CharacterState } from './reducers/characterReducer'
 import { exampleReducer, ExampleState } from './reducers/exampleReducer'
+import { loginReducer, LoginState } from './reducers/loginReducer'
 
 // 为App创建一个State type
 export interface AppState {
   characterState: CharacterState;
   exampleState: ExampleState;
+  loginState: LoginState;
 }
 
 // 创建 root reducer
 const rootReducer = combineReducers<AppState>({
   characterState: characterReducer,
   exampleState: exampleReducer,
+  loginState: loginReducer,
 })
 
 const composeEnhancers = composeWithDevTools({
