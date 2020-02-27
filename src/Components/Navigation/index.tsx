@@ -31,6 +31,12 @@ export default class Navigation extends React.Component {
               <span className="nav-text">Character</span>
             </Link>
           </Menu.Item>
+          <Menu.Item key="4">
+            <Link to="/form">
+              <Icon type="upload" />
+              <span className="nav-text">Form</span>
+            </Link>
+          </Menu.Item>
           <Menu.Item key="9">
             <Link to="/login">
               <Icon type="video-camera" />

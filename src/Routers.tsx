@@ -3,8 +3,9 @@ import { Switch, Route } from 'react-router-dom'
 import Home from 'Pages/Home'
 import WrappedLoginForm from 'Pages/Login'
 import CharacterList from 'Pages/Character'
+import BigForm from 'Pages/BigForm'
 
-export default function Routers() {
+export default function Routers(): React.ReactElement {
   return (
     <Switch>
       <Route path="/login">
@@ -12,6 +13,9 @@ export default function Routers() {
       </Route>
       <Route path="/character">
         <CharacterList />
+      </Route>
+      <Route path="/form">
+        <BigForm />
       </Route>
       <Route path="/">
         <Home />
