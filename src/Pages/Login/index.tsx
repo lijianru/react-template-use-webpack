@@ -1,14 +1,11 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { Form, Icon, Input, Button, message } from 'antd'
-import { FormComponentProps } from 'antd/lib/form/Form'
+import { Form, Input, Button, Checkbox } from 'antd'
 import { ThunkDispatch } from 'redux-thunk'
 
 import { Auth } from '../../redux/reducers/loginReducer'
 import { AppState } from '../../redux/store'
 import { login } from '../../redux/actions/loginAction'
-
-import styles from './styles.scss'
 
 interface StateProps {
   auth: Auth;
@@ -20,7 +17,7 @@ interface DispatchProps {
   login: (values: State) => void;
 }
 
-interface OwnProps extends FormComponentProps {
+interface OwnProps {
   test: string;
 }
 
@@ -31,52 +28,59 @@ export interface State {
   password: string;
 }
 
-class LoginForm extends React.Component<Props> {
-  handleSubmit = (e: React.FormEvent): void => {
-    e.preventDefault()
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        this.props.login(values)
-      }
-    })
-  }
-
-  render(): React.ReactElement {
-    const { getFieldDecorator } = this.props.form
-    return (
-      <Form onSubmit={this.handleSubmit} className={styles.loginForm}>
-        <Form.Item>
-          {getFieldDecorator('username', {
-            rules: [{ required: true, message: 'Please input your username!' }],
-          })(
-            <Input
-              prefix={<Icon type="user" className={styles.inputPlaceholder} />}
-              placeholder="Username"
-            />
-          )}
-        </Form.Item>
-        <Form.Item>
-          {getFieldDecorator('password', {
-            rules: [{ required: true, message: 'Please input your Password!' }],
-          })(
-            <Input
-              prefix={<Icon type="lock" className={styles.inputPlaceholder} />}
-              type="password"
-              placeholder="Password"
-            />
-          )}
-        </Form.Item>
-        <Form.Item>
-          <Button type="primary" htmlType="submit" className={styles.loginFormButton}>
-            Log in
-          </Button>
-        </Form.Item>
-      </Form>
-    )
-  }
+const layout = {
+  labelCol: { span: 8 },
+  wrapperCol: { span: 16 },
+}
+const tailLayout = {
+  wrapperCol: { offset: 8, span: 16 },
 }
 
-const WrappedLoginForm = Form.create({ name: 'login' })(LoginForm)
+const LoginForm = () => {
+  const onFinish = (values: any) => {
+    console.log('Success:', values)
+  }
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo)
+  }
+
+  return (
+    <Form
+      {...layout}
+      name="basic"
+      initialValues={{ remember: true }}
+      onFinish={onFinish}
+      onFinishFailed={onFinishFailed}
+    >
+      <Form.Item
+        label="Username"
+        name="username"
+        rules={[{ required: true, message: 'Please input your username!' }]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="Password"
+        name="password"
+        rules={[{ required: true, message: 'Please input your password!' }]}
+      >
+        <Input.Password />
+      </Form.Item>
+
+      <Form.Item {...tailLayout} name="remember" valuePropName="checked">
+        <Checkbox>Remember me</Checkbox>
+      </Form.Item>
+
+      <Form.Item {...tailLayout}>
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </Form.Item>
+    </Form>
+  )
+}
 
 const mapStateToProps = (state: AppState): StateProps => ({
   auth: state.loginState.auth,
@@ -90,4 +94,4 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, undefined, any>) =
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(WrappedLoginForm)
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm)

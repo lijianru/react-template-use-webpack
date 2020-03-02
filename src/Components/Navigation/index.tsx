@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { Layout, Menu, Icon } from 'antd'
+import { Layout, Menu } from 'antd'
+import { UserOutlined, UploadOutlined, LoginOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 
 const { Sider } = Layout
@@ -21,25 +22,19 @@ export default class Navigation extends React.Component {
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
           <Menu.Item key="1">
             <Link to="/">
-              <Icon type="user" />
+              <UserOutlined />
               <span className="nav-text">Home</span>
             </Link>
           </Menu.Item>
           <Menu.Item key="3">
             <Link to="/character">
-              <Icon type="upload" />
+              <UploadOutlined />
               <span className="nav-text">Character</span>
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="4">
-            <Link to="/form">
-              <Icon type="upload" />
-              <span className="nav-text">Form</span>
             </Link>
           </Menu.Item>
           <Menu.Item key="9">
             <Link to="/login">
-              <Icon type="video-camera" />
+              <LoginOutlined />
               <span className="nav-text">Login</span>
             </Link>
           </Menu.Item>
