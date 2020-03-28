@@ -1,18 +1,18 @@
-import * as React from 'react'
 import { Layout } from 'antd'
-import { BrowserRouter as Router } from 'react-router-dom'
-import Navigation from './Components/Navigation'
-import Routers from './Routers'
-import styles from 'App.scss'
-
 import { Provider } from 'react-redux'
+import React, { Component, ReactElement } from 'react'
+import { BrowserRouter as Router } from 'react-router-dom'
+
+import styles from 'App.scss'
+import Routers from './Routers'
+import Navigation from './Components/Navigation'
 import configureStore from './redux/store'
 
 const { Header, Content, Footer } = Layout
 const store = configureStore()
 
-export default class App extends React.Component {
-  render(): React.ReactElement {
+export default class App extends Component {
+  render(): ReactElement {
     return (
       <Provider store={store}>
         <Router>

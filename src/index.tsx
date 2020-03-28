@@ -1,8 +1,9 @@
-import * as React from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
+
 import App from './App'
 
-const render = (Component: any) => {
+const render = (Component: any): void => {
   ReactDOM.render(<Component />, document.getElementById('root'))
 }
 
@@ -13,7 +14,7 @@ render(App)
 if (module.hot) {
   // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore
-  module.hot.accept('./App.tsx', function () {
+  module.hot.accept('./App.tsx', function() {
     console.log('更新了！')
     const NextComponent = require('./App').default
     render(NextComponent)
