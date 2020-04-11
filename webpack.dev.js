@@ -13,9 +13,6 @@ module.exports = webpackMerge(webpackCommon, {
     path: path.join(__dirname, './dist'),
     filename: '[name].js',
   },
-  plugins: [
-    new Webpack.NamedModulesPlugin(),
-    new Webpack.HotModuleReplacementPlugin(),
-  ],
+  plugins: [new Webpack.NamedModulesPlugin(), new Webpack.HotModuleReplacementPlugin()],
   devtool: 'cheap-module-eval-source-map',
 })
