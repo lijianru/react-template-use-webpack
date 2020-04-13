@@ -1,7 +1,7 @@
-const path = require('path')
-const webpackMerge = require('webpack-merge')
-const webpackCommon = require('./webpack.common.js')
-const Webpack = require('webpack')
+const path = require('path');
+const webpackMerge = require('webpack-merge');
+const webpackCommon = require('./webpack.common.js');
+const Webpack = require('webpack');
 
 module.exports = webpackMerge(webpackCommon, {
   devServer: {
@@ -15,4 +15,4 @@ module.exports = webpackMerge(webpackCommon, {
   },
   plugins: [new Webpack.NamedModulesPlugin(), new Webpack.HotModuleReplacementPlugin()],
   devtool: 'cheap-module-eval-source-map',
-})
+});

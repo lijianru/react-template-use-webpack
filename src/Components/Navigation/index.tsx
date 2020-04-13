@@ -1,23 +1,14 @@
-import * as React from 'react'
-import { Layout, Menu } from 'antd'
-import { UserOutlined, UploadOutlined, LoginOutlined } from '@ant-design/icons'
-import { Link } from 'react-router-dom'
+import React, { ReactElement } from 'react';
+import { Layout, Menu } from 'antd';
+import { UserOutlined, UploadOutlined, LoginOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
-const { Sider } = Layout
+const { Sider } = Layout;
 
 export default class Navigation extends React.Component {
-  render() {
+  render(): ReactElement {
     return (
-      <Sider
-        breakpoint="lg"
-        collapsedWidth="0"
-        onBreakpoint={broken => {
-          // console.log(broken)
-        }}
-        onCollapse={(collapsed, type) => {
-          // console.log(collapsed, type)
-        }}
-      >
+      <Sider breakpoint="lg" collapsedWidth="0">
         <div className="logo" />
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
           <Menu.Item key="1">
@@ -40,6 +31,6 @@ export default class Navigation extends React.Component {
           </Menu.Item>
         </Menu>
       </Sider>
-    )
+    );
   }
 }

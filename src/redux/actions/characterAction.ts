@@ -1,9 +1,9 @@
-import { ActionCreator, Dispatch } from 'redux'
-import { ThunkAction } from 'redux-thunk'
-import { characterService } from '../../utils/service/api'
+import { ActionCreator, Dispatch } from 'redux';
+import { ThunkAction } from 'redux-thunk';
+import { characterService } from '../../utils/service/api';
 
 // action type 的枚举
-import { Character, CharacterState } from '../reducers/characterReducer'
+import { Character, CharacterState } from '../reducers/characterReducer';
 
 // Create Action Constants
 export enum CharacterActionTypes {
@@ -29,23 +29,26 @@ export interface CharacterGetErrorAction {
 }
 
 // Action的类型
-export type CharacterAction = CharacterGettingAction | CharacterGetAllAction | CharacterGetErrorAction
+export type CharacterAction =
+  | CharacterGettingAction
+  | CharacterGetAllAction
+  | CharacterGetErrorAction;
 
 // 创建action
 const fetching = (isLoading: boolean): CharacterGettingAction => ({
   type: CharacterActionTypes.SET_FETCHING,
   isLoading,
-})
+});
 
 const fetchedData = (characters: Character[]): CharacterGetAllAction => ({
   characters,
   type: CharacterActionTypes.SET_FETCHED,
-})
+});
 
 const fetchedError = (error: Error): CharacterGetErrorAction => ({
   error,
   type: CharacterActionTypes.SET_FETCH_ERROR,
-})
+});
 
 export const getAllCharacters: ActionCreator<ThunkAction<
   Promise<void>,
@@ -54,12 +57,12 @@ export const getAllCharacters: ActionCreator<ThunkAction<
   CharacterGetAllAction
 >> = (params) => {
   return async (dispatch: Dispatch): Promise<void> => {
-    dispatch(fetching(true))
+    dispatch(fetching(true));
     try {
-      const response = await characterService(params)
-      dispatch(fetchedData(response.results))
+      const response = await characterService(params);
+      dispatch(fetchedData(response.results));
     } catch (err) {
-      dispatch(fetchedError(err))
+      dispatch(fetchedError(err));
     }
-  }
-}
+  };
+};

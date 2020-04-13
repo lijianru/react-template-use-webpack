@@ -1,8 +1,8 @@
-const path = require('path')
-const webpackMerge = require('webpack-merge')
-const webpackCommon = require('./webpack.common.js')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const env = process.env.ENV
+const path = require('path');
+const webpackMerge = require('webpack-merge');
+const webpackCommon = require('./webpack.common.js');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const env = process.env.ENV;
 
 module.exports = webpackMerge(webpackCommon, {
   mode: env,
@@ -35,4 +35,4 @@ module.exports = webpackMerge(webpackCommon, {
     ],
   },
   devtool: 'source-map',
-})
+});

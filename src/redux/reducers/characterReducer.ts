@@ -1,5 +1,5 @@
-import { Reducer } from 'redux'
-import { CharacterAction, CharacterActionTypes } from '../actions/characterAction'
+import { Reducer } from 'redux';
+import { CharacterAction, CharacterActionTypes } from '../actions/characterAction';
 
 export interface Character {
   name: string;
@@ -29,7 +29,7 @@ export interface CharacterState {
 const initialCharacterState: CharacterState = {
   isLoading: false,
   characters: [],
-}
+};
 
 export const characterReducer: Reducer<CharacterState, CharacterAction> = (
   state = initialCharacterState,
@@ -40,21 +40,21 @@ export const characterReducer: Reducer<CharacterState, CharacterAction> = (
       return {
         ...state,
         isLoading: action.isLoading,
-      }
+      };
     }
     case CharacterActionTypes.SET_FETCHED: {
       return {
         ...state,
         characters: action.characters,
-      }
+      };
     }
     case CharacterActionTypes.SET_FETCH_ERROR: {
       return {
         ...state,
         error: action.error,
-      }
+      };
     }
     default:
-      return state
+      return state;
   }
-}
+};

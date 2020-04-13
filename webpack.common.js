@@ -1,8 +1,8 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
-const tsImportPluginFactory = require('ts-import-plugin')
-const theme = require('./theme')
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const tsImportPluginFactory = require('ts-import-plugin');
+const theme = require('./theme');
 
 module.exports = {
   entry: {
@@ -84,4 +84,4 @@ module.exports = {
       template: path.join(__dirname, './template.html'),
     }),
   ],
-}
+};

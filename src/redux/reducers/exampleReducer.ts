@@ -1,5 +1,5 @@
-import { Reducer } from 'redux'
-import { ExampleAction, ExampleActionTypes } from '../actions/exampleAction'
+import { Reducer } from 'redux';
+import { ExampleAction, ExampleActionTypes } from '../actions/exampleAction';
 
 export interface Author {
   loginname: string;
@@ -30,7 +30,7 @@ export interface ExampleState {
 const initialExampleState: ExampleState = {
   isLoading: false,
   examples: [],
-}
+};
 
 export const exampleReducer: Reducer<ExampleState, ExampleAction> = (
   state = initialExampleState,
@@ -40,19 +40,19 @@ export const exampleReducer: Reducer<ExampleState, ExampleAction> = (
     case ExampleActionTypes.SET_FETCHING:
       return {
         ...state,
-        isLoading: action.isLoading
-      }
+        isLoading: action.isLoading,
+      };
     case ExampleActionTypes.SET_FETCHED:
       return {
         ...state,
-        examples: action.examples
-      }
+        examples: action.examples,
+      };
     case ExampleActionTypes.SET_FETCH_ERROR:
       return {
         ...state,
-        error: action.error
-      }
+        error: action.error,
+      };
     default:
-      return state
+      return state;
   }
-}
+};
