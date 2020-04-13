@@ -36,20 +36,11 @@ module.exports = {
         include: [path.join(__dirname, './src')],
         use: [
           'style-loader',
+          '@teamsupercell/typings-for-css-modules-loader',
           {
-            loader: 'typings-for-css-modules-loader',
-            options: {
-              // 使用css modules
-              modules: true,
-              // 类型导出
-              namedExport: true,
-              // 支持驼峰
-              camelCase: true,
-              // 使用sass
-              sass: true,
-            },
+            loader: 'css-loader',
+            options: { modules: true },
           },
-          'sass-loader',
         ],
       },
       {
