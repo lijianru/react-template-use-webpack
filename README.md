@@ -295,7 +295,7 @@ const theme = require('./theme')
 
 - yarn add @types/react-redux @types/redux-logger @types/redux-thunk redux-devtools-extension
 
-- 在 src 目录下新建 redux 文件夹，并在其中建立 actions 和 reducers 文件夹
+- 在 src 目录下新建 store 文件夹，并在其中建立 actions 和 reducers 文件夹
 - 在 actions 中新建 example.ts 文件
 
 ```typescript
@@ -414,7 +414,7 @@ export const exampleReducer: Reducer<ExampleState, ExampleAction> = (
 }
 ```
 
-- 在 redux 文件夹下新建 store.ts 文件
+- 在 store 文件夹下新建 index.ts 文件
 
 ```typescript
 import { applyMiddleware, combineReducers, createStore, Store } from 'redux'

@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { Form, Input, Button, Checkbox } from 'antd';
 import { ThunkDispatch } from 'redux-thunk';
 
-import { Auth } from '../../redux/reducers/loginReducer';
-import { AppState } from '../../redux/store';
-import { login } from '../../redux/actions/loginAction';
+import { Auth } from '../../store/reducers/loginReducer';
+import { AppState } from '../../store';
+import { login } from '../../store/actions/loginAction';
 
 interface StateProps {
   auth: Auth;
