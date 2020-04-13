@@ -1,8 +1,8 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
-const tsImportPluginFactory = require('ts-import-plugin')
-const theme = require('./theme')
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const tsImportPluginFactory = require('ts-import-plugin');
+const theme = require('./theme');
 
 module.exports = {
   entry: {
@@ -16,11 +16,13 @@ module.exports = {
         options: {
           transpileOnly: true,
           getCustomTransformers: () => ({
-            before: [tsImportPluginFactory({
-              libraryName: 'antd',
-              libraryDirectory: 'lib',
-              style: true,
-            })],
+            before: [
+              tsImportPluginFactory({
+                libraryName: 'antd',
+                libraryDirectory: 'lib',
+                style: true,
+              }),
+            ],
           }),
           compilerOptions: {
             module: 'es2015',
@@ -71,13 +73,15 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
-    plugins: [new TsconfigPathsPlugin({
-      configFile: path.join(__dirname, './tsconfig.json'),
-    })],
+    plugins: [
+      new TsconfigPathsPlugin({
+        configFile: path.join(__dirname, './tsconfig.json'),
+      }),
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(__dirname, './template.html'),
     }),
   ],
-}
+};

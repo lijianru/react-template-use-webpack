@@ -1,25 +1,25 @@
-import * as React from 'react'
-import { Button, Table } from 'antd'
-import { connect } from 'react-redux'
-import { ThunkDispatch } from 'redux-thunk'
+import * as React from 'react';
+import { Button, Table } from 'antd';
+import { connect } from 'react-redux';
+import { ThunkDispatch } from 'redux-thunk';
 
-import { AppState } from '../../redux/store'
-import { getAllCharacters } from '../../redux/actions/characterAction'
-import { Character } from '../../redux/reducers/characterReducer'
+import { AppState } from '../../redux/store';
+import { getAllCharacters } from '../../redux/actions/characterAction';
+import { Character } from '../../redux/reducers/characterReducer';
 
-type State = {}
+type State = {};
 
-type OwnProps = {}
+type OwnProps = {};
 
 type DispatchProps = {
   getAllCharacters: (params: any) => void;
-}
+};
 
 type StateProps = {
   characters: Character[];
-}
+};
 
-type Props = StateProps & OwnProps & DispatchProps
+type Props = StateProps & OwnProps & DispatchProps;
 
 const columns = [
   {
@@ -52,15 +52,15 @@ const columns = [
     dataIndex: 'eye_color',
     key: 'eye_color',
   },
-]
+];
 
 class CharacterList extends React.Component<Props, State> {
   componentDidMount(): void {
-    this.props.getAllCharacters({ search: 'r2' })
+    this.props.getAllCharacters({ search: 'r2' });
   }
 
   getData(): void {
-    this.props.getAllCharacters({ search: 'r2' })
+    this.props.getAllCharacters({ search: 'r2' });
   }
 
   render(): React.ReactElement {
@@ -68,8 +68,8 @@ class CharacterList extends React.Component<Props, State> {
       <div>
         <section>
           <Button
-            onClick={() => {
-              this.getData()
+            onClick={(): void => {
+              this.getData();
             }}
           >
             TEST
@@ -77,7 +77,7 @@ class CharacterList extends React.Component<Props, State> {
         </section>
         <Table columns={columns} dataSource={this.props.characters} />
       </div>
-    )
+    );
   }
 }
 
@@ -86,8 +86,8 @@ class CharacterList extends React.Component<Props, State> {
 const mapStateToProps = (states: AppState, ownProps: OwnProps): StateProps => {
   return {
     characters: states.characterState.characters,
-  }
-}
+  };
+};
 
 const mapDispatchToProps = (
   // TODO
@@ -99,12 +99,9 @@ const mapDispatchToProps = (
 ): DispatchProps => {
   return {
     getAllCharacters: async (params: any): Promise<void> => {
-      await dispatch(getAllCharacters(params))
+      await dispatch(getAllCharacters(params));
     },
-  }
-}
+  };
+};
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CharacterList)
+export default connect(mapStateToProps, mapDispatchToProps)(CharacterList);

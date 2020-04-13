@@ -1,11 +1,11 @@
-import * as React from 'react'
-import { connect } from 'react-redux'
-import { Form, Input, Button, Checkbox } from 'antd'
-import { ThunkDispatch } from 'redux-thunk'
+import React, { ReactElement } from 'react';
+import { connect } from 'react-redux';
+import { Form, Input, Button, Checkbox } from 'antd';
+import { ThunkDispatch } from 'redux-thunk';
 
-import { Auth } from '../../redux/reducers/loginReducer'
-import { AppState } from '../../redux/store'
-import { login } from '../../redux/actions/loginAction'
+import { Auth } from '../../redux/reducers/loginReducer';
+import { AppState } from '../../redux/store';
+import { login } from '../../redux/actions/loginAction';
 
 interface StateProps {
   auth: Auth;
@@ -21,7 +21,7 @@ interface OwnProps {
   test: string;
 }
 
-type Props = StateProps & DispatchProps & OwnProps
+type Props = StateProps & DispatchProps & OwnProps;
 
 export interface State {
   username: string;
@@ -31,19 +31,19 @@ export interface State {
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
-}
+};
 const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
-}
+};
 
-const LoginForm = () => {
-  const onFinish = (values: any) => {
-    console.log('Success:', values)
-  }
+const LoginForm = (): ReactElement => {
+  const onFinish = (values: any): void => {
+    console.log('Success:', values);
+  };
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo)
-  }
+  const onFinishFailed = (errorInfo: any): void => {
+    console.log('Failed:', errorInfo);
+  };
 
   return (
     <Form
@@ -79,19 +79,19 @@ const LoginForm = () => {
         </Button>
       </Form.Item>
     </Form>
-  )
-}
+  );
+};
 
 const mapStateToProps = (state: AppState): StateProps => ({
   auth: state.loginState.auth,
   isLoading: state.loginState.isLoading,
   error: state.loginState.error,
-})
+});
 
-const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, undefined, any>) => ({
+const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, undefined, any>): any => ({
   login: async (data: State): Promise<any> => {
-    await dispatch(login(data))
-  }
-})
+    await dispatch(login(data));
+  },
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm)
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

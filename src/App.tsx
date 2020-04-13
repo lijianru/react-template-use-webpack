@@ -1,15 +1,15 @@
-import { Layout } from 'antd'
-import { Provider } from 'react-redux'
-import React, { Component, ReactElement } from 'react'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { Layout } from 'antd';
+import { Provider } from 'react-redux';
+import React, { Component, ReactElement } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 
-import styles from 'App.scss'
-import Routers from './Routers'
-import Navigation from './Components/Navigation'
-import configureStore from './redux/store'
+import styles from 'App.scss';
+import Routers from './Routers';
+import Navigation from './Components/Navigation';
+import configureStore from './redux/store';
 
-const { Header, Content, Footer } = Layout
-const store = configureStore()
+const { Header, Content, Footer } = Layout;
+const store = configureStore();
 
 export default class App extends Component {
   render(): ReactElement {
@@ -30,6 +30,6 @@ export default class App extends Component {
           </Layout>
         </Router>
       </Provider>
-    )
+    );
   }
 }

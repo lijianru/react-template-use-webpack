@@ -1,9 +1,9 @@
-import React, { ReactElement } from 'react'
-import { Switch, Route } from 'react-router-dom'
+import React, { ReactElement } from 'react';
+import { Switch, Route } from 'react-router-dom';
 
-import Home from 'Pages/Home'
-import WrappedLoginForm from 'Pages/Login'
-import CharacterList from 'Pages/Character'
+import Home from 'Pages/Home';
+import WrappedLoginForm from 'Pages/Login';
+import CharacterList from 'Pages/Character';
 
 export default function Routers(): ReactElement {
   return (
@@ -18,5 +18,5 @@ export default function Routers(): ReactElement {
         <Home />
       </Route>
     </Switch>
-  )
+  );
 }

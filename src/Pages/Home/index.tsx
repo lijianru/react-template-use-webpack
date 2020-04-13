@@ -1,25 +1,25 @@
-import * as React from 'react'
-import { Button, Table } from 'antd'
-import { connect } from 'react-redux'
-import { ThunkDispatch } from 'redux-thunk'
+import React, { ReactElement } from 'react';
+import { Button, Table } from 'antd';
+import { connect } from 'react-redux';
+import { ThunkDispatch } from 'redux-thunk';
 
-import { AppState } from '../../redux/store'
-import { getAllExamples } from '../../redux/actions/exampleAction'
-import { Example, Author } from '../../redux/reducers/exampleReducer'
+import { AppState } from '../../redux/store';
+import { getAllExamples } from '../../redux/actions/exampleAction';
+import { Example, Author } from '../../redux/reducers/exampleReducer';
 
-type State = {}
+type State = {};
 
-type OwnProps = {}
+type OwnProps = {};
 
 type DispatchProps = {
   getAllExamples: () => void;
-}
+};
 
 type StateProps = {
   examples: Example[];
-}
+};
 
-type Props = StateProps & OwnProps & DispatchProps
+type Props = StateProps & OwnProps & DispatchProps;
 
 const columns = [
   {
@@ -37,27 +37,27 @@ const columns = [
     dataIndex: 'author',
     key: 'author_id',
     // eslint-disable-next-line react/display-name
-    render: (author: Author) => (
+    render: (author: Author): ReactElement => (
       <div>
         <h3>{author.loginname}</h3>
-        <img src={author.avatar_url}/>
+        <img src={author.avatar_url} />
       </div>
-    )
+    ),
   },
   {
     title: 'Visit',
     dataIndex: 'visit_count',
     key: 'visit_count',
   },
-]
+];
 
 class Home extends React.Component<Props, State> {
   componentDidMount(): void {
-    this.props.getAllExamples()
+    this.props.getAllExamples();
   }
 
   getData(): void {
-    this.props.getAllExamples()
+    this.props.getAllExamples();
   }
 
   render(): React.ReactElement {
@@ -65,8 +65,8 @@ class Home extends React.Component<Props, State> {
       <div>
         <section>
           <Button
-            onClick={() => {
-              this.getData()
+            onClick={(): void => {
+              this.getData();
             }}
           >
             TEST
@@ -74,7 +74,7 @@ class Home extends React.Component<Props, State> {
         </section>
         <Table columns={columns} dataSource={this.props.examples} />
       </div>
-    )
+    );
   }
 }
 
@@ -83,8 +83,8 @@ class Home extends React.Component<Props, State> {
 const mapStateToProps = (states: AppState, ownProps: OwnProps): StateProps => {
   return {
     examples: states.exampleState.examples,
-  }
-}
+  };
+};
 
 const mapDispatchToProps = (
   // TODO
@@ -96,12 +96,9 @@ const mapDispatchToProps = (
 ): DispatchProps => {
   return {
     getAllExamples: async (): Promise<void> => {
-      await dispatch(getAllExamples())
+      await dispatch(getAllExamples());
     },
-  }
-}
+  };
+};
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Home)
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

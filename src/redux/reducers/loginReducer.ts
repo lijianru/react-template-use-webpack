@@ -1,5 +1,5 @@
-import { Reducer } from 'redux'
-import { LoginActionTypes, LoginAction } from '../actions/loginAction'
+import { Reducer } from 'redux';
+import { LoginActionTypes, LoginAction } from '../actions/loginAction';
 
 export interface Auth {
   token: string;
@@ -14,9 +14,9 @@ export interface LoginState {
 const initialLoginState: LoginState = {
   isLoading: false,
   auth: {
-    token: ''
-  }
-}
+    token: '',
+  },
+};
 
 export const loginReducer: Reducer<LoginState, LoginAction> = (
   state = initialLoginState,
@@ -26,19 +26,19 @@ export const loginReducer: Reducer<LoginState, LoginAction> = (
     case LoginActionTypes.LOGIN_LOADING:
       return {
         ...state,
-        isLoading: action.isLoading
-      }
+        isLoading: action.isLoading,
+      };
     case LoginActionTypes.LOGIN_SUCCESS:
       return {
         ...state,
-        auth: action.auth
-      }
+        auth: action.auth,
+      };
     case LoginActionTypes.LOGIN_ERROR:
       return {
         ...state,
-        error: action.error
-      }
+        error: action.error,
+      };
     default:
-      return state
+      return state;
   }
-}
+};
