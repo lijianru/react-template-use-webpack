@@ -3,9 +3,9 @@ import { Button, Table } from 'antd';
 import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 
-import { AppState } from '../../redux/store';
-import { getAllCharacters } from '../../redux/actions/characterAction';
-import { Character } from '../../redux/reducers/characterReducer';
+import { AppState } from 'store';
+import { getAllCharacters } from 'store/actions/characterAction';
+import { Character } from 'store/reducers/characterReducer';
 
 type State = {};
 

@@ -3,9 +3,9 @@ import { Button, Table } from 'antd';
 import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 
-import { AppState } from '../../redux/store';
-import { getAllExamples } from '../../redux/actions/exampleAction';
-import { Example, Author } from '../../redux/reducers/exampleReducer';
+import { AppState } from 'store';
+import { getAllExamples } from 'store/actions/exampleAction';
+import { Example, Author } from 'store/reducers/exampleReducer';
 
 type State = {};
 

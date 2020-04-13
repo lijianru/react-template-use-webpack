@@ -5,8 +5,8 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import styles from 'App.scss';
 import Routers from './Routers';
-import Navigation from './Components/Navigation';
-import configureStore from './redux/store';
+import Navigation from 'components/Navigation';
+import configureStore from 'store';
 
 const { Header, Content, Footer } = Layout;
 const store = configureStore();

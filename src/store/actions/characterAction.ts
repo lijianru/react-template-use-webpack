@@ -1,6 +1,7 @@
 import { ActionCreator, Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
-import { characterService } from '../../utils/service/api';
+
+import { characterService } from 'utils/service/api';
 
 // action type 的枚举
 import { Character, CharacterState } from '../reducers/characterReducer';

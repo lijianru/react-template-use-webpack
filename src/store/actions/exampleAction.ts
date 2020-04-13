@@ -1,6 +1,7 @@
 import { ActionCreator, Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
-import { exampleService } from '../../utils/service/api';
+
+import { exampleService } from 'utils/service/api';
 
 import { Example, ExampleState } from '../reducers/exampleReducer';
 
