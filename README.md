@@ -478,7 +478,7 @@ resolve: {
 "baseUrl": "./src",
 "paths": {
     "components": ["components/*"],
-    "Pages": ["Pages/*"]
+    "pages": ["pages/*"]
 },
 ```
 
