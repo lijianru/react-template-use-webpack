@@ -1,10 +1,8 @@
 import { ActionCreator, Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 
+import { loginService } from 'utils/service/api';
 import { Auth, LoginState } from '../reducers/loginReducer';
-
-import { loginService } from '../../utils/service/api';
-import { State as LoginParams } from '../../Pages/Login';
 
 export enum LoginActionTypes {
   LOGIN_LOADING = 'login loading',
@@ -49,7 +47,7 @@ export const login: ActionCreator<ThunkAction<
   LoginState,
   null,
   LoginSuccessAction
->> = (data: LoginParams) => {
+>> = (data: any) => {
   return async (dispatch: Dispatch): Promise<void> => {
     dispatch(loginLoading(true));
     try {

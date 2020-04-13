@@ -64,11 +64,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
-    plugins: [
-      new TsconfigPathsPlugin({
-        configFile: path.join(__dirname, './tsconfig.json'),
-      }),
-    ],
+    plugins: [new TsconfigPathsPlugin({ configFile: path.join(__dirname, './tsconfig.json') })],
   },
   plugins: [
     new HtmlWebpackPlugin({

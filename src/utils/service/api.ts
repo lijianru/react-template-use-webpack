@@ -1,7 +1,7 @@
 import instance from './http';
 import BaseUrl from './base';
 
-import { State as LoginParams } from '../../Pages/Login';
+import { State as LoginParams } from '../../pages/Login';
 
 export const exampleService = (): Promise<any> => instance.get(`${BaseUrl.example}/api/v1/topics`);
 export const characterService = (params: any): Promise<any> =>

@@ -1,66 +1,63 @@
-import * as React from 'react';
+import React, { ReactElement } from 'react';
 import { Button, Table } from 'antd';
 import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 
-import { AppState } from '../../store';
-import { getAllCharacters } from '../../store/actions/characterAction';
-import { Character } from '../../store/reducers/characterReducer';
+import { AppState } from 'store';
+import { getAllExamples } from 'store/actions/exampleAction';
+import { Example, Author } from 'store/reducers/exampleReducer';
 
 type State = {};
 
 type OwnProps = {};
 
 type DispatchProps = {
-  getAllCharacters: (params: any) => void;
+  getAllExamples: () => void;
 };
 
 type StateProps = {
-  characters: Character[];
+  examples: Example[];
 };
 
 type Props = StateProps & OwnProps & DispatchProps;
 
 const columns = [
   {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
+    title: 'Id',
+    dataIndex: 'id',
+    key: 'id',
   },
   {
-    title: 'Height',
-    dataIndex: 'height',
-    key: 'height',
+    title: 'Title',
+    dataIndex: 'title',
+    key: 'title',
   },
   {
-    title: 'Mass',
-    dataIndex: 'mass',
-    key: 'mass',
+    title: 'Author',
+    dataIndex: 'author',
+    key: 'author_id',
+    // eslint-disable-next-line react/display-name
+    render: (author: Author): ReactElement => (
+      <div>
+        <h3>{author.loginname}</h3>
+        <img src={author.avatar_url} />
+      </div>
+    ),
   },
   {
-    title: 'Hair',
-    dataIndex: 'hair_color',
-    key: 'hair_color',
-  },
-  {
-    title: 'Skin',
-    dataIndex: 'skin_color',
-    key: 'skin_color',
-  },
-  {
-    title: 'Eye',
-    dataIndex: 'eye_color',
-    key: 'eye_color',
+    title: 'Visit',
+    dataIndex: 'visit_count',
+    key: 'visit_count',
   },
 ];
 
-class CharacterList extends React.Component<Props, State> {
+class Home extends React.Component<Props, State> {
   componentDidMount(): void {
-    this.props.getAllCharacters({ search: 'r2' });
+    this.props.getAllExamples();
   }
 
   getData(): void {
-    this.props.getAllCharacters({ search: 'r2' });
+    this.props.getAllExamples();
   }
 
   render(): React.ReactElement {
@@ -75,7 +72,7 @@ class CharacterList extends React.Component<Props, State> {
             TEST
           </Button>
         </section>
-        <Table columns={columns} dataSource={this.props.characters} />
+        <Table columns={columns} dataSource={this.props.examples} />
       </div>
     );
   }
@@ -85,7 +82,7 @@ class CharacterList extends React.Component<Props, State> {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const mapStateToProps = (states: AppState, ownProps: OwnProps): StateProps => {
   return {
-    characters: states.characterState.characters,
+    examples: states.exampleState.examples,
   };
 };
 
@@ -98,10 +95,10 @@ const mapDispatchToProps = (
   ownProps: OwnProps
 ): DispatchProps => {
   return {
-    getAllCharacters: async (params: any): Promise<void> => {
-      await dispatch(getAllCharacters(params));
+    getAllExamples: async (): Promise<void> => {
+      await dispatch(getAllExamples());
     },
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CharacterList);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

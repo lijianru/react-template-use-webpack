@@ -477,7 +477,7 @@ resolve: {
 ```json
 "baseUrl": "./src",
 "paths": {
-    "Components": ["Components/*"],
+    "components": ["components/*"],
     "Pages": ["Pages/*"]
 },
 ```
