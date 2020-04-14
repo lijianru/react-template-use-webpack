@@ -3,7 +3,7 @@ import { Button, Table } from 'antd';
 import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 
-import { AppState } from 'store';
+import { AppState } from 'store/index';
 import { getAllExamples } from 'store/actions/exampleAction';
 import { Example, Author } from 'store/reducers/exampleReducer';
 

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Form, Input, Button, Checkbox } from 'antd';
 import { ThunkDispatch } from 'redux-thunk';
 
-import { AppState } from 'store';
+import { AppState } from 'store/index';
 import { Auth } from 'store/reducers/loginReducer';
 import { login } from 'store/actions/loginAction';
 

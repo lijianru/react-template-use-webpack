@@ -6,7 +6,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import styles from 'App.scss';
 import Routers from './Routers';
 import Navigation from 'components/Navigation';
-import configureStore from 'store';
+import configureStore from 'store/index';
 
 const { Header, Content, Footer } = Layout;
 const store = configureStore();
