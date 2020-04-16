@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect, useCallback } from 'react';
 import { Button, Table } from 'antd';
 import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
@@ -51,49 +51,32 @@ const columns = [
   },
 ];
 
-class Home extends React.Component<Props, State> {
-  componentDidMount(): void {
-    this.props.getAllExamples();
-  }
+export function Home({ getAllExamples, examples }: Props): ReactElement {
+  useEffect(() => {
+    getAllExamples();
+  }, [getAllExamples]);
 
-  getData(): void {
-    this.props.getAllExamples();
-  }
+  const getData = useCallback(() => {
+    getAllExamples();
+  }, [getAllExamples]);
 
-  render(): React.ReactElement {
-    return (
-      <div>
-        <section>
-          <Button
-            onClick={(): void => {
-              this.getData();
-            }}
-          >
-            TEST
-          </Button>
-        </section>
-        <Table columns={columns} dataSource={this.props.examples} />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <section>
+        <Button onClick={getData}>TEST</Button>
+      </section>
+      <Table columns={columns} dataSource={examples} />
+    </div>
+  );
 }
 
-// ownProps 参数未使用
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const mapStateToProps = (states: AppState, ownProps: OwnProps): StateProps => {
+const mapStateToProps = (states: AppState): StateProps => {
   return {
     examples: states.exampleState.examples,
   };
 };
 
-const mapDispatchToProps = (
-  // TODO
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  dispatch: ThunkDispatch<AppState, undefined, any>,
-  // ownProps 参数未使用
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  ownProps: OwnProps
-): DispatchProps => {
+const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, undefined, any>): DispatchProps => {
   return {
     getAllExamples: async (): Promise<void> => {
       await dispatch(getAllExamples());
