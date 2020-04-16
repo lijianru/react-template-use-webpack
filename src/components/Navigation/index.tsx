@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import { Layout, Menu } from 'antd';
-import { UserOutlined, UploadOutlined, LoginOutlined } from '@ant-design/icons';
+import { UserOutlined, LoginOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
 const { Sider } = Layout;
@@ -15,12 +15,6 @@ export default class Navigation extends React.Component {
             <Link to="/">
               <UserOutlined />
               <span className="nav-text">Home</span>
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="3">
-            <Link to="/character">
-              <UploadOutlined />
-              <span className="nav-text">Character</span>
             </Link>
           </Menu.Item>
           <Menu.Item key="9">
