@@ -1,6 +1,7 @@
 import React, { ReactElement, useEffect, useCallback } from 'react';
 import { Button, Table } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
+import { createSelector } from 'reselect';
 
 import { AppState } from 'store/index';
 import { getAllExamples } from 'store/actions/exampleAction';
@@ -36,8 +37,13 @@ const columns = [
   },
 ];
 
+const selectList = createSelector(
+  (state: AppState) => state.exampleState.examples,
+  (examples: Example[]) => examples.filter((example) => example.id)
+);
+
 export function Home(): ReactElement {
-  const examples: Example[] = useSelector((state: AppState) => state.exampleState.examples);
+  const examples: Example[] = useSelector(selectList);
   const dispatch = useDispatch();
 
   useEffect(() => {
