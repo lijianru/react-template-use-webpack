@@ -1,25 +1,10 @@
 import React, { ReactElement, useEffect, useCallback } from 'react';
 import { Button, Table } from 'antd';
-import { connect } from 'react-redux';
-import { ThunkDispatch } from 'redux-thunk';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { AppState } from 'store/index';
 import { getAllExamples } from 'store/actions/exampleAction';
 import { Example, Author } from 'store/reducers/exampleReducer';
-
-type State = {};
-
-type OwnProps = {};
-
-type DispatchProps = {
-  getAllExamples: () => void;
-};
-
-type StateProps = {
-  examples: Example[];
-};
-
-type Props = StateProps & OwnProps & DispatchProps;
 
 const columns = [
   {
@@ -51,37 +36,26 @@ const columns = [
   },
 ];
 
-export function Home({ getAllExamples, examples }: Props): ReactElement {
+export function Home(): ReactElement {
+  const examples: Example[] = useSelector((state: AppState) => state.exampleState.examples);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    getAllExamples();
-  }, [getAllExamples]);
+    dispatch(getAllExamples());
+  }, [dispatch]);
 
   const getData = useCallback(() => {
-    getAllExamples();
-  }, [getAllExamples]);
+    dispatch(getAllExamples());
+  }, [dispatch]);
 
   return (
     <div>
       <section>
         <Button onClick={getData}>TEST</Button>
       </section>
-      <Table columns={columns} dataSource={examples} />
+      <Table columns={columns} dataSource={examples} rowKey={(record): string => record.id} />
     </div>
   );
 }
 
-const mapStateToProps = (states: AppState): StateProps => {
-  return {
-    examples: states.exampleState.examples,
-  };
-};
-
-const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, undefined, any>): DispatchProps => {
-  return {
-    getAllExamples: async (): Promise<void> => {
-      await dispatch(getAllExamples());
-    },
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default Home;
