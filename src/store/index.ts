@@ -24,6 +24,7 @@ const rootReducer = combineReducers<AppState>({
 const persistConfig = {
   key: 'root',
   storage,
+  whitelist: ['loginState'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
