@@ -4,6 +4,8 @@ import React, { Component, ReactElement, useEffect, useCallback } from 'react';
 import { UserOutlined } from '@ant-design/icons';
 import { BrowserRouter as Router, Switch, Route, Link, useHistory } from 'react-router-dom';
 import { createSelector } from 'reselect';
+import { persistStore } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
 
 import styles from 'App.scss';
 import configureStore, { AppState } from 'store/index';
@@ -15,14 +17,17 @@ import { logout } from 'store/actions/loginAction';
 
 const { Header, Content, Footer, Sider } = Layout;
 const store = configureStore();
+const persistor = persistStore(store);
 
 export default class App extends Component {
   render(): ReactElement {
     return (
       <Provider store={store}>
-        <Router>
-          <RootLayout />
-        </Router>
+        <PersistGate loading={null} persistor={persistor}>
+          <Router>
+            <RootLayout />
+          </Router>
+        </PersistGate>
       </Provider>
     );
   }

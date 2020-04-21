@@ -1,4 +1,6 @@
 import { applyMiddleware, combineReducers, createStore, Store } from 'redux';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -19,6 +21,13 @@ const rootReducer = combineReducers<AppState>({
   loginState: loginReducer,
 });
 
+const persistConfig = {
+  key: 'root',
+  storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
 const composeEnhancers = composeWithDevTools({
   // 在这里指定名称，actionsBlacklist, actionsCreators和其他选项如果需要
 });
@@ -26,7 +35,7 @@ const composeEnhancers = composeWithDevTools({
 // 创建store
 export default function configureStore(): Store<AppState> {
   return createStore(
-    rootReducer,
+    persistedReducer,
     undefined,
     composeEnhancers(applyMiddleware(thunk, createLogger()))
   );
