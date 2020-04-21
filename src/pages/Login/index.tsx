@@ -25,7 +25,7 @@ const Login = (): ReactElement => {
 
   useEffect(() => {
     console.log(token);
-    localStorage.setItem('token', token);
+    token && localStorage.setItem('token', token);
   }, [token]);
 
   const onFinish = (values: any): void => {

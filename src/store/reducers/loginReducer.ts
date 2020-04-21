@@ -13,9 +13,7 @@ export interface LoginState {
 
 const initialLoginState: LoginState = {
   isLoading: false,
-  auth: {
-    token: '',
-  },
+  auth: {} as Auth,
 };
 
 export const loginReducer: Reducer<LoginState, LoginAction> = (
