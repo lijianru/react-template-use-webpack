@@ -8,11 +8,12 @@ import styles from 'App.scss';
 import configureStore from 'store/index';
 import Home from 'pages/Home';
 import LoginPage from 'pages/Login';
+import NotFound from 'pages/NotFound';
 
 const { Header, Content, Footer, Sider } = Layout;
 const store = configureStore();
 
-const isLogin = false;
+const isLogin = !!localStorage.getItem('token');
 
 export default class App extends Component {
   render(): ReactElement {
@@ -43,6 +44,9 @@ export default class App extends Component {
                     <div className={styles.content}>
                       <Route path="/" exact>
                         <Home />
+                      </Route>
+                      <Route>
+                        <NotFound />
                       </Route>
                     </div>
                   </Content>
