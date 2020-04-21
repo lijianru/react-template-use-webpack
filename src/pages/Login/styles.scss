@@ -1,11 +1,9 @@
 .loginForm {
-  max-width: 300px;
+  max-width: 500px;
+  margin: 300px auto;
 }
 
-.inputPlaceholder {
-  color: rgba(0, 0, 0, 0.25);
-}
-
-.loginFormButton {
-  width: 100%;
+.errorMessage {
+  color: red;
+  padding: 10px 0;
 }

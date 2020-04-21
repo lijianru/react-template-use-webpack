@@ -15,7 +15,7 @@ const NextAxios: AxiosInstance = axios.create({
 });
 
 // Store the current Active request
-const requestList: string[] = [];
+let requestList: string[] = [];
 const CancelToken: CancelTokenStatic = axios.CancelToken;
 // Stores cancel functions for all Active requests
 const source: { [key: string]: Canceler } = {};
@@ -54,19 +54,18 @@ NextAxios.interceptors.response.use(
   },
   // request error
   (error: any) => {
-    // If it is an error from the cancellation request
-    if (axios.isCancel(error)) {
-      console.error(error.message);
-    } else if (error && error.response) {
+    requestList = [];
+    if (error && error.response) {
       // Handle a field returned by the backend
       // 401
       // 403
       // 404
       // 422
+      return Promise.reject(error.response.data);
     } else {
-      // Ohter error
+      // other error
+      return Promise.reject(error);
     }
-    return Promise.reject(error);
   }
 );
 

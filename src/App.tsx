@@ -12,7 +12,7 @@ import LoginPage from 'pages/Login';
 const { Header, Content, Footer, Sider } = Layout;
 const store = configureStore();
 
-const isLogin = true;
+const isLogin = false;
 
 export default class App extends Component {
   render(): ReactElement {

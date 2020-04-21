@@ -1,57 +1,44 @@
-import React, { ReactElement } from 'react';
-import { connect } from 'react-redux';
+import React, { ReactElement, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Form, Input, Button, Checkbox } from 'antd';
-import { ThunkDispatch } from 'redux-thunk';
+import { createSelector } from 'reselect';
 
 import { AppState } from 'store/index';
 import { Auth } from 'store/reducers/loginReducer';
 import { login } from 'store/actions/loginAction';
+import styles from './styles.scss';
 
-interface StateProps {
-  auth: Auth;
-  error?: Error;
-  isLoading: boolean;
-}
-
-interface DispatchProps {
-  login: (values: State) => void;
-}
-
-interface OwnProps {
-  test: string;
-}
-
-type Props = StateProps & DispatchProps & OwnProps;
-
-export interface State {
+interface LoginProps {
   username: string;
   password: string;
 }
 
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
-};
-const tailLayout = {
-  wrapperCol: { offset: 8, span: 16 },
-};
+const tokenSelector = createSelector(
+  (state: AppState) => state.loginState.auth,
+  (auth: Auth) => auth.token
+);
 
-const LoginForm = (): ReactElement => {
+const Login = (): ReactElement => {
+  const token = useSelector(tokenSelector);
+  const loginError = useSelector((state: AppState) => state.loginState.error?.message);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log(token);
+    localStorage.setItem('token', token);
+  }, [token]);
+
   const onFinish = (values: any): void => {
-    console.log('Success:', values);
-  };
-
-  const onFinishFailed = (errorInfo: any): void => {
-    console.log('Failed:', errorInfo);
+    dispatch(login(values));
   };
 
   return (
     <Form
-      {...layout}
       name="basic"
+      labelCol={{ span: 4 }}
+      className={styles.loginForm}
       initialValues={{ remember: true }}
       onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
     >
       <Form.Item
         label="Username"
@@ -69,29 +56,18 @@ const LoginForm = (): ReactElement => {
         <Input.Password />
       </Form.Item>
 
-      <Form.Item {...tailLayout} name="remember" valuePropName="checked">
+      <Form.Item wrapperCol={{ offset: 4 }} name="remember" valuePropName="checked">
         <Checkbox>Remember me</Checkbox>
       </Form.Item>
 
-      <Form.Item {...tailLayout}>
+      <Form.Item wrapperCol={{ offset: 4 }}>
         <Button type="primary" htmlType="submit">
           Submit
         </Button>
+        <p className={styles.errorMessage}>{loginError}</p>
       </Form.Item>
     </Form>
   );
 };
 
-const mapStateToProps = (state: AppState): StateProps => ({
-  auth: state.loginState.auth,
-  isLoading: state.loginState.isLoading,
-  error: state.loginState.error,
-});
-
-const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, undefined, any>): any => ({
-  login: async (data: State): Promise<any> => {
-    await dispatch(login(data));
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default Login;

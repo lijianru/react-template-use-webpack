@@ -5,9 +5,9 @@ import { loginService } from 'utils/service/api';
 import { Auth, LoginState } from '../reducers/loginReducer';
 
 export enum LoginActionTypes {
-  LOGIN_LOADING = 'login loading',
-  LOGIN_SUCCESS = 'login success',
-  LOGIN_ERROR = 'login error',
+  LOGIN_LOADING = 'LOGIN_LOADING',
+  LOGIN_SUCCESS = 'LOGIN_SUCCESS',
+  LOGIN_ERROR = 'LOGIN_ERROR',
 }
 
 export interface LoginLoadingAction {
@@ -53,8 +53,6 @@ export const login: ActionCreator<ThunkAction<
     try {
       const response = await loginService(data);
       if (response && response.token) {
-        window.alert('登录成功！');
-        localStorage.setItem('token', response.token);
         dispatch(loginSuccess(response));
       } else {
         dispatch(loginError(new Error('接口异常！')));

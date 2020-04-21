@@ -27,6 +27,7 @@ export const loginReducer: Reducer<LoginState, LoginAction> = (
       return {
         ...state,
         isLoading: action.isLoading,
+        error: undefined,
       };
     case LoginActionTypes.LOGIN_SUCCESS:
       return {
