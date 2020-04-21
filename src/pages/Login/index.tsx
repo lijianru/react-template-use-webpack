@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { ReactElement, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Input, Button, Checkbox } from 'antd';
 import { createSelector } from 'reselect';
@@ -28,9 +28,12 @@ const Login = (): ReactElement => {
     token && localStorage.setItem('token', token);
   }, [token]);
 
-  const onFinish = (values: any): void => {
-    dispatch(login(values));
-  };
+  const onFinish = useCallback(
+    (values: any): void => {
+      dispatch(login(values));
+    },
+    [dispatch]
+  );
 
   return (
     <Form
