@@ -1,10 +1,8 @@
-import React, { ReactElement, useEffect, useCallback } from 'react';
+import React, { ReactElement, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Input, Button, Checkbox } from 'antd';
-import { createSelector } from 'reselect';
 
 import { AppState } from 'store/index';
-import { Auth } from 'store/reducers/loginReducer';
 import { login } from 'store/actions/loginAction';
 import styles from './styles.scss';
 
@@ -13,20 +11,9 @@ interface LoginProps {
   password: string;
 }
 
-const tokenSelector = createSelector(
-  (state: AppState) => state.loginState.auth,
-  (auth: Auth) => auth.token
-);
-
 const Login = (): ReactElement => {
-  const token = useSelector(tokenSelector);
   const loginError = useSelector((state: AppState) => state.loginState.error?.message);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    console.log(token);
-    token && localStorage.setItem('token', token);
-  }, [token]);
 
   const onFinish = useCallback(
     (values: any): void => {
@@ -35,6 +22,7 @@ const Login = (): ReactElement => {
     [dispatch]
   );
 
+  console.log('render login page!');
   return (
     <Form
       name="basic"

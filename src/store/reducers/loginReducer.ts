@@ -32,6 +32,11 @@ export const loginReducer: Reducer<LoginState, LoginAction> = (
         ...state,
         auth: action.auth,
       };
+    case LoginActionTypes.LOGOUT_SUCCESS:
+      return {
+        ...state,
+        ...initialLoginState,
+      };
     case LoginActionTypes.LOGIN_ERROR:
       return {
         ...state,

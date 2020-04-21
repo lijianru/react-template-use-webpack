@@ -1,19 +1,20 @@
-import { Layout, Menu } from 'antd';
-import { Provider } from 'react-redux';
-import React, { Component, ReactElement } from 'react';
+import { Layout, Menu, Button } from 'antd';
+import { Provider, useSelector, useDispatch } from 'react-redux';
+import React, { Component, ReactElement, useEffect, useCallback } from 'react';
 import { UserOutlined } from '@ant-design/icons';
-import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link, useHistory } from 'react-router-dom';
+import { createSelector } from 'reselect';
 
 import styles from 'App.scss';
-import configureStore from 'store/index';
+import configureStore, { AppState } from 'store/index';
 import Home from 'pages/Home';
 import LoginPage from 'pages/Login';
 import NotFound from 'pages/NotFound';
+import { Auth } from 'store/reducers/loginReducer';
+import { logout } from 'store/actions/loginAction';
 
 const { Header, Content, Footer, Sider } = Layout;
 const store = configureStore();
-
-const isLogin = !!localStorage.getItem('token');
 
 export default class App extends Component {
   render(): ReactElement {
@@ -27,14 +28,31 @@ export default class App extends Component {
   }
 }
 
+const tokenSelector = createSelector(
+  (state: AppState) => state.loginState.auth,
+  (auth: Auth) => auth.token
+);
+
 const RootLayout = (): ReactElement => {
-  if (!isLogin) {
+  const token = useSelector(tokenSelector);
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    token && history.push('/home');
+    !token && history.push('/login');
+  }, [token, history]);
+
+  const logoutHandler = useCallback(() => {
+    dispatch(logout());
+  }, [dispatch]);
+
+  if (!token) {
     return (
       <Switch>
         <Route path="/login" exact>
           <LoginPage />
         </Route>
-        <Route path="*" exact render={(): ReactElement => <Redirect to="/login" />} />
       </Switch>
     );
   }
@@ -53,14 +71,15 @@ const RootLayout = (): ReactElement => {
         </Menu>
       </Sider>
       <Layout>
-        <Header className={styles.header} />
+        <Header className={styles.header}>
+          <Button onClick={logoutHandler}>Logout</Button>
+        </Header>
         <Content className={styles.container}>
           <div className={styles.content}>
             <Switch>
               <Route path="/home" exact>
                 <Home />
               </Route>
-              <Route path="/login" exact render={(): ReactElement => <Redirect to="/home" />} />
               <Route path="*">
                 <NotFound />
               </Route>

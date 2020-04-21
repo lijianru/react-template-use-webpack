@@ -7,6 +7,7 @@ import { Auth, LoginState } from '../reducers/loginReducer';
 export enum LoginActionTypes {
   LOGIN_LOADING = 'LOGIN_LOADING',
   LOGIN_SUCCESS = 'LOGIN_SUCCESS',
+  LOGOUT_SUCCESS = 'LOGOUT_SUCCESS',
   LOGIN_ERROR = 'LOGIN_ERROR',
 }
 
@@ -20,12 +21,20 @@ export interface LoginSuccessAction {
   auth: Auth;
 }
 
+export interface LogoutSuccessAction {
+  type: LoginActionTypes.LOGOUT_SUCCESS;
+}
+
 export interface LoginErrorAction {
   type: LoginActionTypes.LOGIN_ERROR;
   error: Error;
 }
 
-export type LoginAction = LoginLoadingAction | LoginSuccessAction | LoginErrorAction;
+export type LoginAction =
+  | LoginLoadingAction
+  | LoginSuccessAction
+  | LogoutSuccessAction
+  | LoginErrorAction;
 
 const loginLoading = (isLoading: boolean): LoginLoadingAction => ({
   isLoading,
@@ -35,6 +44,10 @@ const loginLoading = (isLoading: boolean): LoginLoadingAction => ({
 const loginSuccess = (auth: Auth): LoginSuccessAction => ({
   auth,
   type: LoginActionTypes.LOGIN_SUCCESS,
+});
+
+const logoutSuccess = (): LogoutSuccessAction => ({
+  type: LoginActionTypes.LOGOUT_SUCCESS,
 });
 
 const loginError = (error: Error): LoginErrorAction => ({
@@ -61,5 +74,11 @@ export const login: ActionCreator<ThunkAction<
       console.log(err);
       dispatch(loginError(err));
     }
+  };
+};
+
+export const logout = () => {
+  return (dispatch: Dispatch): void => {
+    dispatch(logoutSuccess());
   };
 };
