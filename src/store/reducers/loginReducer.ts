@@ -3,6 +3,7 @@ import { LoginActionTypes, LoginAction } from '../actions/loginAction';
 
 export interface Auth {
   token: string;
+  username: string;
 }
 
 export interface LoginState {

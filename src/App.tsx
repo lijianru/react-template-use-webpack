@@ -33,13 +33,14 @@ export default class App extends Component {
   }
 }
 
-const tokenSelector = createSelector(
-  (state: AppState) => state.loginState.auth,
-  (auth: Auth) => auth.token
-);
+const authSelector = (state: AppState): Auth => state.loginState.auth;
+
+const tokenSelector = createSelector(authSelector, (auth: Auth) => auth.token);
+const usernameSelector = createSelector(authSelector, (auth: Auth) => auth.username);
 
 const RootLayout = (): ReactElement => {
   const token = useSelector(tokenSelector);
+  const username = useSelector(usernameSelector);
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -77,7 +78,11 @@ const RootLayout = (): ReactElement => {
       </Sider>
       <Layout>
         <Header className={styles.header}>
-          <Button onClick={logoutHandler}>Logout</Button>
+          <span>
+            欢迎 <b>{username}</b>!
+          </span>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <a onClick={logoutHandler}>登出</a>
         </Header>
         <Content className={styles.container}>
           <div className={styles.content}>
