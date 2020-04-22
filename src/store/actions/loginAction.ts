@@ -66,6 +66,8 @@ export const login: ActionCreator<ThunkAction<
     try {
       const response = await loginService(data);
       if (response && response.token) {
+        // TODO 不应该在action中
+        localStorage.setItem('token', response.token);
         dispatch(loginSuccess(response));
       } else {
         dispatch(loginError(new Error('接口异常！')));
@@ -79,6 +81,8 @@ export const login: ActionCreator<ThunkAction<
 
 export const logout = () => {
   return (dispatch: Dispatch): void => {
+    // TODO 不应该在action中
+    localStorage.removeItem('token');
     dispatch(logoutSuccess());
   };
 };

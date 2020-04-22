@@ -6,6 +6,8 @@ import axios, {
   AxiosResponse,
 } from 'axios';
 
+import configureStore from 'store/index';
+
 // Create axios instance
 const NextAxios: AxiosInstance = axios.create({
   timeout: 1000 * 60,

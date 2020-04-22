@@ -6,7 +6,7 @@ import { AppState } from 'store/index';
 import { login } from 'store/actions/loginAction';
 import styles from './styles.scss';
 
-interface LoginProps {
+export interface LoginProps {
   username: string;
   password: string;
 }

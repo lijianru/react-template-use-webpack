@@ -11,6 +11,7 @@ import { Auth } from 'store/reducers/loginReducer';
 import Home from 'pages/Home';
 import LoginPage from 'pages/Login';
 import NotFound from 'pages/NotFound';
+import AdminUserList from 'pages/AdminUser/list';
 import RootHeader from 'components/RootHeader';
 
 import styles from './styles.scss';
@@ -51,6 +52,12 @@ const RootLayout = (): ReactElement => {
               <span>Home</span>
             </Link>
           </Menu.Item>
+          <Menu.Item key="2">
+            <Link to="/admin-users">
+              <UserOutlined />
+              <span>Admin User List</span>
+            </Link>
+          </Menu.Item>
         </Menu>
       </Sider>
       <Layout>
@@ -60,6 +67,9 @@ const RootLayout = (): ReactElement => {
             <Switch>
               <Route path="/home" exact>
                 <Home />
+              </Route>
+              <Route path="/admin-users" exact>
+                <AdminUserList />
               </Route>
               <Route path="*">
                 <NotFound />
