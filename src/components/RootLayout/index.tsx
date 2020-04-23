@@ -3,8 +3,9 @@ import { useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
 import { UserOutlined } from '@ant-design/icons';
 import React, { ReactElement, useEffect } from 'react';
-import { Switch, Route, Link, useHistory } from 'react-router-dom';
+import { Switch, Route, Link, useHistory, useLocation } from 'react-router-dom';
 
+import { renderLog } from 'utils/log';
 import { AppState } from 'store/index';
 import { Auth } from 'store/reducers/loginReducer';
 
@@ -25,9 +26,17 @@ const tokenSelector = createSelector(authSelector, (auth: Auth) => auth.token);
 const RootLayout = (): ReactElement => {
   const token = useSelector(tokenSelector);
   const history = useHistory();
+  const location = useLocation();
 
+  // 处理登陆逻辑
   useEffect(() => {
-    token && history.push('/home');
+    if (token && location.pathname === '/login') {
+      history.push('/home');
+    }
+  }, [token, history, location]);
+
+  // token不存在时回到登陆页面
+  useEffect(() => {
     !token && history.push('/login');
   }, [token, history]);
 
@@ -41,18 +50,19 @@ const RootLayout = (): ReactElement => {
     );
   }
 
+  renderLog('RootLayout render!!!');
   return (
     <Layout className={styles.app}>
       <Sider breakpoint="lg" collapsedWidth="0">
         <div className="logo" />
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-          <Menu.Item key="1">
+        <Menu theme="dark" mode="inline" defaultSelectedKeys={[location.pathname]}>
+          <Menu.Item key="/home">
             <Link to="/home">
               <UserOutlined />
               <span>Home</span>
             </Link>
           </Menu.Item>
-          <Menu.Item key="2">
+          <Menu.Item key="/admin-users">
             <Link to="/admin-users">
               <UserOutlined />
               <span>Admin User List</span>

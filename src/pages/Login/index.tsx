@@ -2,8 +2,10 @@ import React, { ReactElement, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Input, Button, Checkbox } from 'antd';
 
+import { renderLog } from 'utils/log';
 import { AppState } from 'store/index';
 import { login } from 'store/actions/loginAction';
+
 import styles from './styles.scss';
 
 export interface LoginProps {
@@ -22,7 +24,7 @@ const Login = (): ReactElement => {
     [dispatch]
   );
 
-  console.log('render login page!');
+  renderLog('Login render!!!');
   return (
     <Form
       name="basic"

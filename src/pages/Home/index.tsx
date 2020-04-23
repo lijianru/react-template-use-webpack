@@ -1,8 +1,9 @@
-import React, { ReactElement, useEffect, useCallback } from 'react';
 import { Button, Table } from 'antd';
-import { useSelector, useDispatch } from 'react-redux';
 import { createSelector } from 'reselect';
+import { useSelector, useDispatch } from 'react-redux';
+import React, { ReactElement, useEffect, useCallback } from 'react';
 
+import { renderLog } from 'utils/log';
 import { AppState } from 'store/index';
 import { getAllExamples } from 'store/actions/exampleAction';
 import { Example, Author } from 'store/reducers/exampleReducer';
@@ -54,6 +55,7 @@ export function Home(): ReactElement {
     dispatch(getAllExamples());
   }, [dispatch]);
 
+  renderLog('Home render!!!');
   return (
     <div>
       <section>

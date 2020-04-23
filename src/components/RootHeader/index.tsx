@@ -3,6 +3,7 @@ import { createSelector } from 'reselect';
 import { useSelector, useDispatch } from 'react-redux';
 import React, { ReactElement, useCallback } from 'react';
 
+import { renderLog } from 'utils/log';
 import { AppState } from 'store/index';
 import { Auth } from 'store/reducers/loginReducer';
 import { logout } from 'store/actions/loginAction';
@@ -23,6 +24,7 @@ const RootHeader = (): ReactElement => {
     dispatch(logout());
   }, [dispatch]);
 
+  renderLog('RootHeader render!!!');
   return (
     <Header className={styles.header}>
       <span>
