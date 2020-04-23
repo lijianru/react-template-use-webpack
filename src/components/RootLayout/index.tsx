@@ -12,8 +12,9 @@ import { Auth } from 'store/reducers/loginReducer';
 import Home from 'pages/Home';
 import LoginPage from 'pages/Login';
 import NotFound from 'pages/NotFound';
-import AdminUserList from 'pages/AdminUser/list';
 import RootHeader from 'components/RootHeader';
+import AdminUserList from 'pages/AdminUser/list';
+import AdminUserDetail from 'pages/AdminUser/detail';
 
 import styles from './styles.scss';
 
@@ -80,6 +81,9 @@ const RootLayout = (): ReactElement => {
               </Route>
               <Route path="/admin-users" exact>
                 <AdminUserList />
+              </Route>
+              <Route path="/admin-user/:id">
+                <AdminUserDetail />
               </Route>
               <Route path="*">
                 <NotFound />

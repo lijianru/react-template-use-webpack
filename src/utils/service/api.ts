@@ -10,4 +10,6 @@ export const loginService = (data: LoginProps): Promise<any> =>
 
 export const adminUserService = {
   fetchAdminUsers: (): Promise<any> => instance.get(`${BaseUrl.lolAdmin}/api/rest/adminUser`),
+  fetchAdminUserById: (id: string): Promise<any> =>
+    instance.put(`${BaseUrl.lolAdmin}/api/rest/adminUser/${id}`),
 };

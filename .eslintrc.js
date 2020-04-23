@@ -37,5 +37,6 @@ module.exports = {
     'handle-callback-err': 'off',
     'comma-dangle': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+    'react/display-name': 0,
   },
 };

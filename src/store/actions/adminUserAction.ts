@@ -7,6 +7,9 @@ export enum AdminUserActionTypes {
   GET_ADMIN_USERS_LOADING = 'GET_ADMIN_USERS_LOADING',
   GET_ADMIN_USERS_SUCCESS = 'GET_ADMIN_USERS_SUCCESS',
   GET_ADMIN_USERS_ERROR = 'GET_ADMIN_USERS_ERROR',
+  GET_ADMIN_USER_DETAIL_LOADING = 'GET_ADMIN_USER_DETAIL_LOADING',
+  GET_ADMIN_USER_DETAIL_SUCCESS = 'GET_ADMIN_USER_DETAIL_SUCCESS',
+  GET_ADMIN_USER_DETAIL_ERROR = 'GET_ADMIN_USER_DETAIL_ERROR',
 }
 
 export interface GetAdminUsersLoading {
@@ -24,7 +27,28 @@ export interface GetAdminUsersError {
   getAdminUsersError: Error;
 }
 
-export type AdminUserAction = GetAdminUsersLoading | GetAdminUsersSuccess | GetAdminUsersError;
+export interface GetAdminUserDetailLoading {
+  type: AdminUserActionTypes.GET_ADMIN_USER_DETAIL_LOADING;
+  getAdminUserDetailLoading: boolean;
+}
+
+export interface GetAdminUserDetailSuccess {
+  type: AdminUserActionTypes.GET_ADMIN_USER_DETAIL_SUCCESS;
+  adminUser: AdminUser;
+}
+
+export interface GetAdminUserDetailError {
+  type: AdminUserActionTypes.GET_ADMIN_USER_DETAIL_ERROR;
+  getAdminUserDetailError: Error;
+}
+
+export type AdminUserAction =
+  | GetAdminUsersLoading
+  | GetAdminUsersSuccess
+  | GetAdminUsersError
+  | GetAdminUserDetailLoading
+  | GetAdminUserDetailSuccess
+  | GetAdminUserDetailError;
 
 const adminUserActionCreators = {
   getAdminUsersLoading: (getAdminUsersLoading: boolean): GetAdminUsersLoading => ({
@@ -39,6 +63,18 @@ const adminUserActionCreators = {
     getAdminUsersError,
     type: AdminUserActionTypes.GET_ADMIN_USERS_ERROR,
   }),
+  getAdminUserDetailLoading: (getAdminUserDetailLoading: boolean): GetAdminUserDetailLoading => ({
+    getAdminUserDetailLoading,
+    type: AdminUserActionTypes.GET_ADMIN_USER_DETAIL_LOADING,
+  }),
+  getAdminUserDetailSuccess: (adminUser: AdminUser): GetAdminUserDetailSuccess => ({
+    adminUser,
+    type: AdminUserActionTypes.GET_ADMIN_USER_DETAIL_SUCCESS,
+  }),
+  getAdminUserDetailError: (getAdminUserDetailError: Error): GetAdminUserDetailError => ({
+    getAdminUserDetailError,
+    type: AdminUserActionTypes.GET_ADMIN_USER_DETAIL_ERROR,
+  }),
 };
 
 export const getAdminUsers = () => {
@@ -49,6 +85,18 @@ export const getAdminUsers = () => {
       dispatch(adminUserActionCreators.getAdminUsersSuccess(adminUsers));
     } catch (error) {
       dispatch(adminUserActionCreators.getAdminUsersError(error));
+    }
+  };
+};
+
+export const getAdminUserById = (id: string) => {
+  return async (dispatch: Dispatch): Promise<void> => {
+    dispatch(adminUserActionCreators.getAdminUserDetailLoading(true));
+    try {
+      const adminUser = await adminUserService.fetchAdminUserById(id);
+      dispatch(adminUserActionCreators.getAdminUserDetailSuccess(adminUser));
+    } catch (error) {
+      dispatch(adminUserActionCreators.getAdminUserDetailError(error));
     }
   };
 };
